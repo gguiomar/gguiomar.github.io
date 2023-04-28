@@ -525,3 +525,16 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+div {
+  position: relative;
+  top: 0px; /* adjust as needed */
+  left: 60px; /* adjust as needed */
+}
+
+@media only screen and (max-width: 600px) {
+  .my-iframe {
+    width: 100%;
+    height: auto;
+  }
+}
