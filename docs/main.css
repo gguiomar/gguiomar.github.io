@@ -8,12 +8,6 @@
 
 :root .fa-moon { padding-left: 10px; padding-top: 12px; display: block; }
 
-html[data-theme='dark'] { --global-bg-color:#000; --global-code-bg-color: #2c3237; --global-text-color: #FFF; --global-text-color-light: #FFF; --global-theme-color: #ffffff; --global-hover-color: #d6d6d6; --global-footer-bg-color: #e8e8e8; --global-footer-text-color: #ffffff; --global-footer-link-color: #ffffff; --global-distill-app-color: #ffffff; }
-
-html[data-theme='dark'] .fa-sun { padding-left: 10px; padding-top: 12px; display: block; }
-
-html[data-theme='dark'] .fa-moon { display: none; }
-
 /****************************************************************************** Content */
 body { padding-bottom: 70px; color: var(--global-text-color); background-color: var(--global-bg-color); }
 
