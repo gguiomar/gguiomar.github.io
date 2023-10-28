@@ -22,7 +22,7 @@ body.sticky-bottom-footer { padding-bottom: 0; }
 /****************************************************************************** Publications */
 /***************************************************************************** Projects */
 /******************************************************************************* Styles for the base elements of the theme. */
-.invis { height: 2px; border-color: var(--global-text-color); border-width: 0; background-color: var(--global-bg-color); }
+.invis { height: 2px; border-color: var(--global-text-color); border-width: 0; background-color: var(--global-text-color); }
 
 p, li, h1, h2, h3, h4, h5, h6, em, div, span, strong { color: var(--global-text-color); font-family: Roboto, sans-serif; }
 
@@ -225,7 +225,7 @@ d-article { border-top-color: #e8e8e8 !important; }
 
 d-article a, d-article p, d-article h1, d-article h2, d-article h3, d-article h4, d-article h5, d-article h6 { color: var(--global-text-color) !important; }
 
-d-article a, d-article h1, d-article h2, d-article hr { border-bottom-color: #e8e8e8 !important; }
+d-article a, d-article h1, d-article h2, d-article hr { border-bottom-color: #ffffff !important; }
 
 d-article a:hover { border-bottom-color: var(--global-hover-color) !important; }
 
