@@ -24,8 +24,8 @@ body.sticky-bottom-footer { padding-bottom: 0; }
 /******************************************************************************* Styles for the base elements of the theme. */
 
 .image {
-    width: 367px;
-    height: 325px;
+    width: 325px;
+    height: 367px;
     display: block;
     margin-left: auto;
     margin-right: auto;
