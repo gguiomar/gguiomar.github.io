@@ -4,11 +4,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Writing Title - Gonçalo Guiomar</title>
+<title>Worlds within worlds - Gonçalo Guiomar</title>
 <link href="./docs/bootstrap.min.css" rel="stylesheet" integrity="sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg==" crossorigin="anonymous">
 <link rel="stylesheet" href="./docs/mdb.min.css" integrity="sha512-RO38pBRxYH3SoOprtPTD86JFOclM51/XTIdEPh5j8sj4tp8jmQIx26twG52UaLi//hQldfrh7e51WzP9wuP32Q==" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-ZQzr1Bb6UcE6U7xiZOTfKZPEHEnSQPh+I8W7oFueC/5D5evuMbkE0K+cNPeUb2x4V7ugtbIvL8YksOJ3qo0z7A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="./docs/main.css">
+
+<!-- MathJax Configuration -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<!-- Load MathJax -->
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
 </head>
 
@@ -18,27 +37,39 @@
     <p><a href="index.html" style="color: #000; text-decoration: none;">← Back to home</a></p>
     
     <!-- Writing title -->
-    <h3 style="margin-bottom: 20px;"><strong>Writing Title</strong></h3>
+    <h3 style="margin-bottom: 20px;"><strong>Worlds within worlds</strong></h3>
     
     <!-- Date -->
-    <p style="font-size: 14px; color: #666; margin-bottom: 30px;">Date: Month Day, Year</p>
+    <p style="font-size: 14px; color: #666; margin-bottom: 30px;">December 11th, 2024</p>
     
     <!-- Content -->
     <div style="max-width: 800px; margin: 0 auto; font-size: 16px; line-height: 1.8;">
         <p align="justify">
-            Your writing content goes here. This is the first paragraph.
+            Here's an example with an inline equation: The energy-momentum relation is given by $E = \sqrt{(pc)^2 + (mc^2)^2}$, 
+            where $E$ is energy, $p$ is momentum, $m$ is mass, and $c$ is the speed of light.
         </p>
         
         <p align="justify">
-            Second paragraph. The text is justified to match your site's style.
+            For displayed equations, use double dollar signs. Here's the Schrödinger equation:
         </p>
+        
+        $$
+        i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \left[-\frac{\hbar^2}{2m}\nabla^2 + V(\mathbf{r},t)\right]\Psi(\mathbf{r},t)
+        $$
         
         <!-- For section headers within the writing -->
         <h4 style="margin-top: 40px; margin-bottom: 20px;"><strong>Section Title</strong></h4>
         
         <p align="justify">
-            Content under a section.
+            You can also use aligned equations for multiple lines:
         </p>
+        
+        $$
+        \begin{align*}
+        \frac{d}{dx}e^x &= e^x \\
+        \int e^x dx &= e^x + C
+        \end{align*}
+        $$
         
         <!-- For including images -->
         <!-- <div style="margin: 40px 0;">
@@ -55,5 +86,3 @@
 
 </body>
 </html>
-
-
