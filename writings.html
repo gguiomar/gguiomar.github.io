@@ -29,12 +29,32 @@ MathJax = {
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+.back-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+}
+</style>
+
 </head>
 
 <body>
 <div class="container mt-5">
-    <!-- Navigation back to main page -->
-    <p><a href="index.html" style="color: #000; text-decoration: none;">← Back to home</a></p>
+    <!-- Back link above title -->
+    <a href="index.html" class="back-link">← Back to home</a>
     
     <!-- Writing title -->
     <h3 style="margin-bottom: 20px;"><strong>Worlds within worlds</strong></h3>
