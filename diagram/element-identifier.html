@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAVIC Element Identifier</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00bd00;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: rgba(0, 189, 0, 0.05);
+            border-right: 1px solid #00bd00;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagram-container {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            position: relative;
+        }
+
+        h1 {
+            color: #00bd00;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00bd00;
+            padding-bottom: 10px;
+        }
+
+        .element-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .element-item {
+            margin: 10px 0;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        
+        .element-item.active {
+            background: rgba(0, 189, 0, 0.2);
+            box-shadow: 0 0 5px #00bd00;
+        }
+
+        .element-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .element-name {
+            font-weight: bold;
+        }
+
+        .element-id {
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .toggle-btn {
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 5px;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(0, 189, 0, 0.2);
+        }
+
+        .toggle-btn.active {
+            background: #00bd00;
+            color: #000;
+        }
+
+        .identify-btn {
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .identify-btn:hover {
+            background: rgba(0, 189, 0, 0.2);
+        }
+
+        .identify-btn.identifying {
+            background: #00bd00;
+            color: #000;
+        }
+
+        .element-details {
+            display: none;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .element-item.identified .element-details {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group label {
+            flex: 0 0 80px;
+            font-size: 11px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            background: rgba(0, 189, 0, 0.05);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 4px #00bd00;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 189, 0, 0.2);
+        }
+
+        .floating-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .identification-marker {
+            position: absolute;
+            background: rgba(0, 189, 0, 0.3);
+            border: 2px solid #00bd00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 0 20px #00bd00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 5px 2px rgba(0, 189, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 15px 5px rgba(0, 189, 0, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 5px 2px rgba(0, 189, 0, 0.5);
+            }
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #000;
+            border: 1px solid #00bd00;
+            border-radius: 5px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 90%;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00bd00;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #00bd00;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .page-template {
+            background: rgba(0, 189, 0, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .filter-container {
+            margin-bottom: 15px;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 5px;
+        }
+
+        .filter-btn {
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .filter-btn.active {
+            background: #00bd00;
+            color: #000;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-active {
+            background-color: #00bd00;
+        }
+        
+        .status-inactive {
+            background-color: #333;
+            border: 1px solid #00bd00;
+        }
+
+        .status-identified {
+            background-color: #bd00bd;
+        }
+
+        .legend {
+            font-size: 11px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(0, 189, 0, 0.3);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Hidden state for clusters */
+        .cluster-hidden {
+            opacity: 0.1 !important;
+            filter: grayscale(1) !important;
+            transition: all 0.3s ease !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>ATAVIC Element Identifier</h1>
+        
+        <div class="filter-container">
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="status-indicator status-active"></span> Active
+                </div>
+                <div class="legend-item">
+                    <span class="status-indicator status-inactive"></span> Inactive
+                </div>
+                <div class="legend-item">
+                    <span class="status-indicator status-identified"></span> Identified
+                </div>
+            </div>
+
+            <span class="filter-label">Show elements:</span>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="inactive">Inactive</button>
+                <button class="filter-btn" data-filter="identified">Identified</button>
+                <button class="filter-btn" data-filter="unidentified">Unidentified</button>
+            </div>
+        </div>
+        
+        <ul class="element-list" id="elementList">
+            <!-- Text elements will be populated here -->
+        </ul>
+        
+        <div class="action-buttons">
+            <button class="action-btn" id="saveBtn">💾 Save Identifications</button>
+            <button class="action-btn" id="generateBtn">🔄 Generate Pages</button>
+        </div>
+    </div>
+    
+    <div class="viewer-container">
+        <div class="diagram-container" id="diagramContainer">
+            <!-- SVG will be loaded here -->
+        </div>
+    </div>
+    
+    <div class="floating-notification" id="notification"></div>
+    
+    <div class="modal" id="generateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Generate HTML Pages</h3>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <p>This will create blank HTML pages for all identified elements. Unidentified elements will be skipped.</p>
+            
+            <h4>Page Template:</h4>
+            <div class="page-template" id="pageTemplate">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00bd00;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            border-bottom: 1px solid #00bd00;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 8px 16px;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        
+        .back-link:hover {
+            background: rgba(0, 189, 0, 0.2);
+        }
+        
+        .content {
+            min-height: 300px;
+            border: 1px dashed #00bd00;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{TITLE}}</h1>
+        <a href="../viewer.html" class="back-link">← Back to ATAVIC Diagram</a>
+        
+        <div class="content">
+            <!-- Add your content here -->
+            <p>This page is about {{TITLE}} ({{ELEMENT_ID}}).</p>
+            <p>Replace this content with your own material.</p>
+        </div>
+    </div>
+</body>
+</html>
+            </div>
+            
+            <div class="identified-elements">
+                <h4>Pages to generate:</h4>
+                <ul id="identifiedElementsList">
+                    <!-- Will be populated with identified elements -->
+                </ul>
+            </div>
+            
+            <button class="action-btn" id="confirmGenerateBtn">✓ Generate Pages</button>
+        </div>
+    </div>
+
+    <script>
+        class ElementIdentifier {
+            constructor() {
+                this.textElements = [
+                    'text-machine-encoding',
+                    'text-encoding', 
+                    'text-territory',
+                    'text-relational',
+                    'text-contact',
+                    'text-atavic',
+                    'text-ontology',
+                    'text-point',
+                    'text-synthesis',
+                    'text-precognitive',
+                    'text-ontogeny',
+                    'text-selected',
+                    'text-decoder',
+                    'text-lateral',
+                    'text-poetics',
+                    'text-manifestation',
+                    'text-object',
+                    'text-prompt',
+                    'text-observer'
+                ];
+                this.colorElements = [
+                    'yellow',
+                    'blue', 
+                    'pink',
+                    'red'
+                ];
+                this.allElements = [...this.textElements, ...this.colorElements];
+                this.elementsData = {};
+                this.activeElements = [...this.allElements]; // All elements active by default
+                this.identifyingElement = null;
+                this.identificationMarkers = [];
+                
+                this.initialize();
+            }
+            
+            initialize() {
+                this.loadSavedData();
+                this.loadSVG();
+                this.populateElementList();
+                this.setupEventListeners();
+            }
+            
+            loadSavedData() {
+                const savedData = localStorage.getItem('atavicElementIdentifications');
+                if (savedData) {
+                    this.elementsData = JSON.parse(savedData);
+                    
+                    // Initialize any missing elements
+                    this.allElements.forEach(elementId => {
+                        if (!this.elementsData[elementId]) {
+                            this.elementsData[elementId] = {
+                                identified: false,
+                                title: this.formatLabel(elementId),
+                                filename: this.generateFilename(elementId),
+                                active: true
+                            };
+                        }
+                    });
+                } else {
+                    // Initialize all elements with default data
+                    this.allElements.forEach(elementId => {
+                        this.elementsData[elementId] = {
+                            identified: false,
+                            title: this.formatLabel(elementId),
+                            filename: this.generateFilename(elementId),
+                            active: true
+                        };
+                    });
+                }
+            }
+            
+            async loadSVG() {
+                try {
+                    const response = await fetch('ATAVIC.svg');
+                    const svgText = await response.text();
+                    
+                    document.getElementById('diagramContainer').innerHTML = svgText;
+                    this.svg = document.querySelector('svg');
+                    
+                    // Set diagram container size to match SVG
+                    if (this.svg) {
+                        this.svg.style.width = '100%';
+                        this.svg.style.height = '100%';
+                        
+                        // Categorize elements first
+                        this.categorizeElements();
+                        
+                        // Then apply visibility
+                        this.applyElementVisibility();
+                    }
+                    
+                } catch (error) {
+                    console.error('Error loading SVG:', error);
+                    this.showNotification('Error loading diagram', 'error');
+                }
+            }
+            
+            setupEventListeners() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.filterElements(btn.dataset.filter);
+                    });
+                });
+                
+                // Save button
+                document.getElementById('saveBtn').addEventListener('click', () => {
+                    this.saveIdentifications();
+                });
+                
+                // Generate pages button
+                document.getElementById('generateBtn').addEventListener('click', () => {
+                    this.showGenerateModal();
+                });
+                
+                // Close modal button
+                document.getElementById('closeModal').addEventListener('click', () => {
+                    this.hideModal();
+                });
+                
+                // Confirm generate button
+                document.getElementById('confirmGenerateBtn').addEventListener('click', () => {
+                    this.generatePages();
+                });
+            }
+            
+            categorizeElements() {
+                if (!this.svg) return;
+                
+                const elements = this.svg.querySelectorAll('path, circle, ellipse, rect, line, polygon');
+                
+                elements.forEach(element => {
+                    const fill = element.getAttribute('fill');
+                    const stroke = element.getAttribute('stroke');
+                    
+                    // First categorize text elements by coordinates
+                    this.categorizeTextElement(element);
+                    
+                    // Then categorize by color (if not already categorized as text)
+                    if (!element.hasAttribute('data-cluster')) {
+                        if (this.isYellowish(fill) || this.isYellowish(stroke)) {
+                            element.setAttribute('data-cluster', 'yellow');
+                        } else if (this.isBluish(fill) || this.isBluish(stroke)) {
+                            element.setAttribute('data-cluster', 'blue');
+                        } else if (this.isPinkish(fill) || this.isPinkish(stroke)) {
+                            element.setAttribute('data-cluster', 'pink');
+                        } else if (this.isReddish(fill) || this.isReddish(stroke)) {
+                            element.setAttribute('data-cluster', 'red');
+                        }
+                    }
+                });
+            }
+            
+            isYellowish(color) {
+                if (!color) return false;
+                const yellowColors = [
+                    '#98B90B', '#CAFC2B', '#CAFD3B', '#CEFD45', '#CFFD41', '#CFFD47',
+                    '#D3FC5E', '#D4FC58', '#DCEF0E', '#E3FF29', '#E4FF33', '#E6FF41'
+                ];
+                return yellowColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isBluish(color) {
+                if (!color) return false;
+                const blueColors = [
+                    '#0053FF', '#0A58FF', '#0E5BFF', '#105DFF', '#1862FF', '#1963FF',
+                    '#276BFF', '#2870FF', '#2F72FF', '#3878FF', '#4D88FF', '#5086FF',
+                    '#5B8EFF', '#5D94FF', '#5E95FF'
+                ];
+                return blueColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isPinkish(color) {
+                if (!color) return false;
+                const pinkColors = [
+                    '#F50EF0', '#F61CF1', '#F82FF3', '#F939F4', '#F93CF4', '#F942F7',
+                    '#FA47F5', '#FA48F8', '#FA49F8', '#FA4CF8', '#FB4EF6', '#FB4FF5',
+                    '#FB53F5', '#FB54F9', '#FB59F9', '#FC59F6', '#FC5CF6', '#FC5DF6',
+                    '#FC5EFA', '#FC61FA', '#FC64FA', '#FD68F5', '#FD6CFB'
+                ];
+                return pinkColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isReddish(color) {
+                if (!color) return false;
+                const redColors = [
+                    '#F02613', '#F83421', '#FB3725', '#FC3926', '#FF2900', '#FF330B',
+                    '#FF3D19', '#FF3D1A', '#FF3F1A', '#FF3F2E', '#FF402F', '#FF4432',
+                    '#FF4723', '#FF4824', '#FF4927', '#FF4A28', '#FF4E3E', '#FF502D',
+                    '#FF502F', '#FF512E', '#FF5130', '#FF5245', '#FF5433', '#FF5434',
+                    '#FF5534', '#FF5736', '#FF5848', '#FF5A38', '#FF5A3A', '#FF5B3B',
+                    '#FF5D3F', '#FF5E3C', '#FF5F41', '#FF6245', '#FF6456', '#FF675B',
+                    '#FF6F61', '#FF7F74', '#FF877E', '#FFA08C'
+                ];
+                return redColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            categorizeTextElement(element) {
+                if (element.tagName !== 'path') return;
+                
+                const d = element.getAttribute('d');
+                if (!d) return;
+                
+                // Extract coordinates from path data to determine text regions
+                const pathData = d.toLowerCase();
+                const coords = this.extractCoordinates(d);
+                
+                if (!coords.length) return;
+                
+                const x = coords[0].x;
+                const y = coords[0].y;
+                
+                // Define text regions based on coordinate analysis of the SVG
+                // These coordinates are approximated from the actual text positions in the SVG
+                
+                // "MACHINE ENCODING" region (around lines 1778)
+                if (x >= 370 && x <= 460 && y >= 544 && y <= 572) {
+                    element.setAttribute('data-cluster', 'text-machine-encoding');
+                    return;
+                }
+                
+                // "ENCODING" region (around lines 1779)
+                if (x >= 368 && x <= 457 && y >= 561 && y <= 572) {
+                    element.setAttribute('data-cluster', 'text-encoding');
+                    return;
+                }
+                
+                // "TERRITORY" region (around lines 1798)
+                if (x >= 373 && x <= 453 && y >= 637 && y <= 646) {
+                    element.setAttribute('data-cluster', 'text-territory');
+                    return;
+                }
+                
+                // "Relational" text (around lines 1859+)
+                if (x >= 458 && x <= 513 && y >= 821 && y <= 830) {
+                    element.setAttribute('data-cluster', 'text-relational');
+                    return;
+                }
+                
+                // "CONTACT" region (around lines 1881)
+                if (x >= 387 && x <= 447 && y >= 830 && y <= 839) {
+                    element.setAttribute('data-cluster', 'text-contact');
+                    return;
+                }
+                
+                // "ATAVIC" region (looking for title-like text)
+                if (x >= 398 && x <= 435 && y >= 813 && y <= 822) {
+                    element.setAttribute('data-cluster', 'text-atavic');
+                    return;
+                }
+                
+                // "ONTOLOGY" region (around lines 1882)
+                if (x >= 393 && x <= 431 && y >= 848 && y <= 857) {
+                    element.setAttribute('data-cluster', 'text-ontology');
+                    return;
+                }
+                
+                // "POINT" region (around lines 1882)
+                if (x >= 401 && x <= 421 && y >= 848 && y <= 857) {
+                    element.setAttribute('data-cluster', 'text-point');
+                    return;
+                }
+                
+                // "Synthesis" text
+                if (x >= 463 && x <= 512 && y >= 837 && y <= 846) {
+                    element.setAttribute('data-cluster', 'text-synthesis');
+                    return;
+                }
+                
+                // "Precognitive structures" text (bottom text area)
+                if (x >= 538 && x <= 658 && y >= 897 && y <= 908) {
+                    element.setAttribute('data-cluster', 'text-precognitive');
+                    return;
+                }
+                
+                // Vertical text on left side (O-N-T-O-G-E-N-Y)
+                if (x >= 134 && x <= 143 && y >= 684 && y <= 806) {
+                    element.setAttribute('data-cluster', 'text-ontogeny');
+                    return;
+                }
+                
+                // "SELECTED" text (around lines 554)
+                if (x >= 584 && x <= 702 && y >= 643 && y <= 677) {
+                    element.setAttribute('data-cluster', 'text-selected');
+                    return;
+                }
+                
+                // "DECODER" text (around lines 551-554)
+                if (x >= 504 && x <= 558 && y >= 225 && y <= 234) {
+                    element.setAttribute('data-cluster', 'text-decoder');
+                    return;
+                }
+                
+                // "LATERAL" text (part of LATERAL POETICS)
+                if (x >= 232 && x <= 280 && y >= 953 && y <= 974) {
+                    element.setAttribute('data-cluster', 'text-lateral');
+                    return;
+                }
+                
+                // "POETICS" text (part of LATERAL POETICS)
+                if (x >= 226 && x <= 278 && y >= 964 && y <= 974) {
+                    element.setAttribute('data-cluster', 'text-poetics');
+                    return;
+                }
+                
+                // "MANIFESTATION" text (upper text)
+                if (x >= 457 && x <= 548 && y >= 956 && y <= 966) {
+                    element.setAttribute('data-cluster', 'text-manifestation');
+                    return;
+                }
+                
+                // "OBJECT" text 
+                if (x >= 346 && x <= 386 && y >= 956 && y <= 966) {
+                    element.setAttribute('data-cluster', 'text-object');
+                    return;
+                }
+                
+                // "PROMPT" text
+                if (x >= 272 && x <= 318 && y >= 225 && y <= 234) {
+                    element.setAttribute('data-cluster', 'text-prompt');
+                    return;
+                }
+                
+                // "OBSERVER" text
+                if (x >= 363 && x <= 459 && y >= 359 && y <= 373) {
+                    element.setAttribute('data-cluster', 'text-observer');
+                    return;
+                }
+            }
+            
+            extractCoordinates(pathData) {
+                const coords = [];
+                const matches = pathData.match(/[ml]\s*([0-9.\-]+)\s*([0-9.\-]+)/gi);
+                
+                if (matches) {
+                    matches.forEach(match => {
+                        const parts = match.replace(/[ml]/i, '').trim().split(/\s+/);
+                        if (parts.length >= 2) {
+                            coords.push({
+                                x: parseFloat(parts[0]),
+                                y: parseFloat(parts[1])
+                            });
+                        }
+                    });
+                }
+                
+                return coords;
+            }
+            
+            populateElementList() {
+                const container = document.getElementById('elementList');
+                container.innerHTML = '';
+                
+                this.allElements.forEach(elementId => {
+                    const data = this.elementsData[elementId];
+                    const isActive = this.activeElements.includes(elementId);
+                    const isIdentified = data && data.identified;
+                    
+                    const li = document.createElement('li');
+                    li.className = `element-item ${isActive ? 'active' : ''} ${isIdentified ? 'identified' : ''}`;
+                    li.dataset.elementId = elementId;
+                    
+                    const labelText = this.formatLabel(elementId);
+                    
+                    li.innerHTML = `
+                        <div class="element-header">
+                            <div>
+                                <span class="status-indicator ${isActive ? 'status-active' : 'status-inactive'} ${isIdentified ? 'status-identified' : ''}"></span>
+                                <span class="element-name">${data && data.title ? data.title : labelText}</span>
+                            </div>
+                            <div>
+                                <button class="toggle-btn ${isActive ? 'active' : ''}" data-action="toggle">
+                                    ${isActive ? 'ON' : 'OFF'}
+                                </button>
+                                <button class="identify-btn" data-action="identify">
+                                    Identify
+                                </button>
+                            </div>
+                        </div>
+                        <div class="element-id">${elementId}</div>
+                        <div class="element-details">
+                            <div class="input-group">
+                                <label>Display Title:</label>
+                                <input type="text" class="title-input" value="${data && data.title ? data.title : labelText}" 
+                                    placeholder="Display title">
+                            </div>
+                            <div class="input-group">
+                                <label>Filename:</label>
+                                <input type="text" class="filename-input" value="${data && data.filename ? data.filename : this.generateFilename(elementId)}" 
+                                    placeholder="my-page.html">
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(li);
+                    
+                    // Set up event listeners for this element
+                    const toggleBtn = li.querySelector('.toggle-btn');
+                    const identifyBtn = li.querySelector('.identify-btn');
+                    
+                    toggleBtn.addEventListener('click', () => {
+                        this.toggleElement(elementId, li, toggleBtn);
+                    });
+                    
+                    identifyBtn.addEventListener('click', () => {
+                        this.startIdentifying(elementId, identifyBtn);
+                    });
+                    
+                    // Input fields for identified elements
+                    if (isIdentified) {
+                        const titleInput = li.querySelector('.title-input');
+                        const filenameInput = li.querySelector('.filename-input');
+                        
+                        titleInput.addEventListener('input', () => {
+                            this.elementsData[elementId].title = titleInput.value;
+                        });
+                        
+                        filenameInput.addEventListener('input', () => {
+                            this.elementsData[elementId].filename = filenameInput.value;
+                        });
+                    }
+                });
+            }
+            
+            formatLabel(elementId) {
+                // Handle color elements
+                if (this.colorElements.includes(elementId)) {
+                    return elementId.toUpperCase() + ' ELEMENTS';
+                }
+                
+                // Handle text elements
+                return elementId
+                    .replace('text-', '')
+                    .replace(/-/g, ' ')
+                    .toUpperCase()
+                    .replace('MACHINE ENCODING', 'MACHINE ENCODING')
+                    .replace('PRECOGNITIVE', 'PRECOGNITIVE STRUCTURES');
+            }
+            
+            generateFilename(elementId) {
+                // Handle color elements
+                if (this.colorElements.includes(elementId)) {
+                    return elementId.toLowerCase() + '-elements.html';
+                }
+                
+                // Handle text elements
+                return elementId
+                    .replace('text-', '')
+                    .toLowerCase() + '.html';
+            }
+            
+            toggleElement(elementId, listItem, button) {
+                const isCurrentlyActive = this.activeElements.includes(elementId);
+                
+                if (isCurrentlyActive) {
+                    // Remove from active elements
+                    this.activeElements = this.activeElements.filter(id => id !== elementId);
+                    button.textContent = 'OFF';
+                    listItem.classList.remove('active');
+                    button.classList.remove('active');
+                    
+                    // Update element data
+                    this.elementsData[elementId].active = false;
+                } else {
+                    // Add to active elements
+                    this.activeElements.push(elementId);
+                    button.textContent = 'ON';
+                    listItem.classList.add('active');
+                    button.classList.add('active');
+                    
+                    // Update element data
+                    this.elementsData[elementId].active = true;
+                }
+                
+                // Update the status indicator
+                const statusIndicator = listItem.querySelector('.status-indicator');
+                if (this.activeElements.includes(elementId)) {
+                    statusIndicator.classList.add('status-active');
+                    statusIndicator.classList.remove('status-inactive');
+                } else {
+                    statusIndicator.classList.remove('status-active');
+                    statusIndicator.classList.add('status-inactive');
+                }
+                
+                this.applyElementVisibility();
+            }
+            
+            applyElementVisibility() {
+                if (!this.svg) return;
+                
+                this.allElements.forEach(elementId => {
+                    const elements = this.svg.querySelectorAll(`[data-cluster="${elementId}"]`);
+                    const isActive = this.activeElements.includes(elementId);
+                    
+                    elements.forEach(element => {
+                        if (isActive) {
+                            element.classList.remove('cluster-hidden');
+                            element.style.opacity = '1';
+                        } else {
+                            element.classList.add('cluster-hidden');
+                            element.style.opacity = '0.2';
+                        }
+                    });
+                });
+            }
+            
+            startIdentifying(elementId, button) {
+                // Clear any existing identification state
+                this.clearIdentification();
+                
+                // Set identifying state for this element
+                this.identifyingElement = elementId;
+                button.classList.add('identifying');
+                button.textContent = 'Identifying...';
+                
+                // Get elements with this data-cluster
+                const elements = this.svg.querySelectorAll(`[data-cluster="${elementId}"]`);
+                
+                // Highlight these elements
+                elements.forEach(element => {
+                    // Calculate element center point
+                    const bbox = element.getBBox();
+                    const x = bbox.x + (bbox.width / 2);
+                    const y = bbox.y + (bbox.height / 2);
+                    
+                    // Create a marker
+                    const marker = document.createElement('div');
+                    marker.className = 'identification-marker';
+                    marker.style.left = `${x}px`;
+                    marker.style.top = `${y}px`;
+                    marker.textContent = this.identificationMarkers.length + 1;
+                    
+                    // Add the marker to the diagram container
+                    document.getElementById('diagramContainer').appendChild(marker);
+                    
+                    // Store the marker for later cleanup
+                    this.identificationMarkers.push(marker);
+                });
+                
+                // Mark element as identified
+                this.elementsData[elementId].identified = true;
+                
+                // Update the element in the list
+                const listItem = document.querySelector(`.element-item[data-element-id="${elementId}"]`);
+                listItem.classList.add('identified');
+                
+                // Update the status indicator
+                const statusIndicator = listItem.querySelector('.status-indicator');
+                statusIndicator.classList.add('status-identified');
+                
+                // Show notification
+                this.showNotification(`Identified "${this.elementsData[elementId].title || this.formatLabel(elementId)}"`);
+                
+                // Automatically end identification after 2 seconds
+                setTimeout(() => {
+                    this.endIdentification(elementId, button, listItem);
+                }, 2000);
+            }
+            
+            endIdentification(elementId, button, listItem) {
+                // Reset button state
+                button.classList.remove('identifying');
+                button.textContent = 'Identify';
+                
+                // Clear markers
+                this.clearIdentification();
+                
+                // Reset identifying state
+                this.identifyingElement = null;
+                
+                // Update sidebar to show details form
+                listItem.classList.add('identified');
+                const details = listItem.querySelector('.element-details');
+                details.style.display = 'block';
+            }
+            
+            clearIdentification() {
+                // Remove identification markers
+                this.identificationMarkers.forEach(marker => {
+                    marker.remove();
+                });
+                this.identificationMarkers = [];
+                
+                // Reset any identifying buttons
+                if (this.identifyingElement) {
+                    const button = document.querySelector(`.element-item[data-element-id="${this.identifyingElement}"] .identify-btn`);
+                    button.classList.remove('identifying');
+                    button.textContent = 'Identify';
+                    this.identifyingElement = null;
+                }
+            }
+            
+            filterElements(filterType) {
+                const listItems = document.querySelectorAll('.element-item');
+                
+                listItems.forEach(item => {
+                    const elementId = item.dataset.elementId;
+                    const isActive = this.activeElements.includes(elementId);
+                    const isIdentified = this.elementsData[elementId].identified;
+                    
+                    switch (filterType) {
+                        case 'all':
+                            item.style.display = 'block';
+                            break;
+                        case 'active':
+                            item.style.display = isActive ? 'block' : 'none';
+                            break;
+                        case 'inactive':
+                            item.style.display = !isActive ? 'block' : 'none';
+                            break;
+                        case 'identified':
+                            item.style.display = isIdentified ? 'block' : 'none';
+                            break;
+                        case 'unidentified':
+                            item.style.display = !isIdentified ? 'block' : 'none';
+                            break;
+                    }
+                });
+            }
+            
+            saveIdentifications() {
+                // Update data from input fields
+                document.querySelectorAll('.element-item.identified').forEach(item => {
+                    const elementId = item.dataset.elementId;
+                    const titleInput = item.querySelector('.title-input');
+                    const filenameInput = item.querySelector('.filename-input');
+                    
+                    if (titleInput && filenameInput) {
+                        this.elementsData[elementId].title = titleInput.value;
+                        this.elementsData[elementId].filename = filenameInput.value;
+                    }
+                });
+                
+                // Save to local storage
+                localStorage.setItem('atavicElementIdentifications', JSON.stringify(this.elementsData));
+                
+                this.showNotification('Identifications saved successfully!');
+            }
+            
+            showGenerateModal() {
+                // Populate the identified elements list
+                const identifiedElementsList = document.getElementById('identifiedElementsList');
+                identifiedElementsList.innerHTML = '';
+                
+                let hasIdentifiedElements = false;
+                
+                for (const elementId in this.elementsData) {
+                    const data = this.elementsData[elementId];
+                    if (data.identified) {
+                        hasIdentifiedElements = true;
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${data.title}</strong> (${elementId}) → <code>${data.filename}</code>`;
+                        identifiedElementsList.appendChild(li);
+                    }
+                }
+                
+                if (!hasIdentifiedElements) {
+                    identifiedElementsList.innerHTML = '<li>No elements have been identified yet. Use the "Identify" buttons to mark elements.</li>';
+                    document.getElementById('confirmGenerateBtn').disabled = true;
+                } else {
+                    document.getElementById('confirmGenerateBtn').disabled = false;
+                }
+                
+                // Show the modal
+                document.getElementById('generateModal').style.display = 'flex';
+            }
+            
+            hideModal() {
+                document.getElementById('generateModal').style.display = 'none';
+            }
+            
+            generatePages() {
+                // Prepare the page generation data
+                const pagesToGenerate = [];
+                
+                for (const elementId in this.elementsData) {
+                    const data = this.elementsData[elementId];
+                    if (data.identified) {
+                        pagesToGenerate.push({
+                            elementId: elementId,
+                            title: data.title,
+                            filename: data.filename
+                        });
+                    }
+                }
+                
+                // Create the output object
+                const output = {
+                    template: document.getElementById('pageTemplate').textContent,
+                    pages: pagesToGenerate
+                };
+                
+                // For browser-based implementation, we'll just download this as JSON
+                // In a server environment, this would actually create the files
+                const outputBlob = new Blob([JSON.stringify(output, null, 2)], {type: 'application/json'});
+                const url = URL.createObjectURL(outputBlob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'atavic-pages.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                this.hideModal();
+                this.showNotification(`Generated data for ${pagesToGenerate.length} pages`);
+            }
+            
+            showNotification(message, type = 'success') {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = 'floating-notification';
+                if (type === 'error') {
+                    notification.className += ' error';
+                }
+                
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                        notification.style.opacity = '1';
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        // Initialize the app when the document is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ElementIdentifier();
+        });
+    </script>
+</body>
+</html>

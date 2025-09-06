@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAVIC Diagram</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #00bd00;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+        
+        .diagram-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-wrapper {
+            position: relative;
+            transform-origin: center center;
+            transition: none;
+        }
+        
+        svg {
+            max-width: 100%;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+        }
+        
+        /* Clickable element styles - minimal, no animations */
+        .clickable-element {
+            cursor: pointer !important;
+        }
+        
+        
+        /* Loading indicator */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00bd00;
+            font-size: 18px;
+            text-align: center;
+            z-index: 200;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00bd00;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error message */
+        .error-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(139, 0, 0, 0.1);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+            z-index: 200;
+            backdrop-filter: blur(10px);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">Loading diagram...</div>
+    
+    <div class="diagram-container" id="diagramContainer">
+        <div class="diagram-wrapper" id="diagramWrapper">
+            <!-- SVG will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        class ATAVICDiagramViewer {
+            constructor() {
+                this.currentScale = 1;
+                this.currentX = 0;
+                this.currentY = 0;
+                this.isDragging = false;
+                this.startX = 0;
+                this.startY = 0;
+                this.minScale = 0.1;
+                this.maxScale = 5;
+                this.svg = null;
+                
+                // Navigation mapping - this will be populated from saved identifications
+                this.navigationMapping = {};
+                
+                this.initialize();
+            }
+            
+            async initialize() {
+                try {
+                    // Load navigation mapping from JSON file
+                    await this.loadNavigationMapping();
+                    
+                    // Load SVG
+                    await this.loadSVG();
+                    
+                    // Setup interactions
+                    this.setupEventListeners();
+                    
+                    // Add clickable navigation
+                    this.addClickableNavigation();
+                    
+                } catch (error) {
+                    this.showError('Failed to load diagram: ' + error.message);
+                }
+            }
+            
+            async loadNavigationMapping() {
+                try {
+                    // Load navigation mapping from atavic-pages.json
+                    const response = await fetch('atavic-pages.json');
+                    if (response.ok) {
+                        const pagesData = await response.json();
+                        
+                        // Convert pages data to navigation mapping
+                        pagesData.pages.forEach(page => {
+                            this.navigationMapping[page.elementId] = {
+                                name: page.title,
+                                url: `pages/${page.filename}`,
+                                elementId: page.elementId
+                            };
+                        });
+                        
+                        console.log(`Loaded ${Object.keys(this.navigationMapping).length} navigation mappings from atavic-pages.json`);
+                        return;
+                    }
+                } catch (e) {
+                    console.warn('Failed to load atavic-pages.json:', e);
+                }
+                
+                // Fallback: Try to load from localStorage (from element identifier)
+                const savedData = localStorage.getItem('atavicElementIdentifications');
+                if (savedData) {
+                    try {
+                        const elementData = JSON.parse(savedData);
+                        
+                        // Convert to navigation mapping
+                        for (const [elementId, data] of Object.entries(elementData)) {
+                            if (data.identified && data.title && data.filename) {
+                                this.navigationMapping[elementId] = {
+                                    name: data.title,
+                                    url: `pages/${data.filename}`,
+                                    elementId: elementId
+                                };
+                            }
+                        }
+                        
+                        console.log(`Loaded ${Object.keys(this.navigationMapping).length} navigation mappings from localStorage`);
+                    } catch (e) {
+                        console.warn('Failed to parse saved identification data:', e);
+                    }
+                }
+            }
+            
+            async loadSVG() {
+                const response = await fetch('ATAVIC.svg');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const svgText = await response.text();
+                const wrapper = document.getElementById('diagramWrapper');
+                wrapper.innerHTML = svgText;
+                
+                this.svg = wrapper.querySelector('svg');
+                if (!this.svg) {
+                    throw new Error('SVG element not found in loaded content');
+                }
+                
+                // Categorize elements
+                this.categorizeElements();
+                
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+            }
+            
+            categorizeElements() {
+                if (!this.svg) return;
+                
+                const elements = this.svg.querySelectorAll('path, circle, ellipse, rect, line, polygon');
+                console.log(`Found ${elements.length} elements to categorize`);
+                
+                let textElementsFound = 0;
+                let colorElementsFound = 0;
+                
+                elements.forEach(element => {
+                    const fill = element.getAttribute('fill');
+                    const stroke = element.getAttribute('stroke');
+                    
+                    // First categorize text elements by coordinates and color
+                    this.categorizeTextElement(element);
+                    
+                    // Then categorize by color (if not already categorized as text)
+                    if (!element.hasAttribute('data-cluster')) {
+                        if (this.isYellowish(fill) || this.isYellowish(stroke)) {
+                            element.setAttribute('data-cluster', 'yellow');
+                            colorElementsFound++;
+                        } else if (this.isBluish(fill) || this.isBluish(stroke)) {
+                            element.setAttribute('data-cluster', 'blue');
+                            colorElementsFound++;
+                        } else if (this.isPinkish(fill) || this.isPinkish(stroke)) {
+                            element.setAttribute('data-cluster', 'pink');
+                            colorElementsFound++;
+                        } else if (this.isReddish(fill) || this.isReddish(stroke)) {
+                            element.setAttribute('data-cluster', 'red');
+                            colorElementsFound++;
+                        }
+                    } else {
+                        textElementsFound++;
+                    }
+                });
+                
+                console.log(`Categorized ${textElementsFound} text elements and ${colorElementsFound} color elements`);
+            }
+            
+            // Color detection methods (same as in element identifier)
+            isYellowish(color) {
+                if (!color) return false;
+                const yellowColors = [
+                    '#98B90B', '#CAFC2B', '#CAFD3B', '#CEFD45', '#CFFD41', '#CFFD47',
+                    '#D3FC5E', '#D4FC58', '#DCEF0E', '#E3FF29', '#E4FF33', '#E6FF41'
+                ];
+                return yellowColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isBluish(color) {
+                if (!color) return false;
+                const blueColors = [
+                    '#0053FF', '#0A58FF', '#0E5BFF', '#105DFF', '#1862FF', '#1963FF',
+                    '#276BFF', '#2870FF', '#2F72FF', '#3878FF', '#4D88FF', '#5086FF',
+                    '#5B8EFF', '#5D94FF', '#5E95FF'
+                ];
+                return blueColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isPinkish(color) {
+                if (!color) return false;
+                const pinkColors = [
+                    '#F50EF0', '#F61CF1', '#F82FF3', '#F939F4', '#F93CF4', '#F942F7',
+                    '#FA47F5', '#FA48F8', '#FA49F8', '#FA4CF8', '#FB4EF6', '#FB4FF5',
+                    '#FB53F5', '#FB54F9', '#FB59F9', '#FC59F6', '#FC5CF6', '#FC5DF6',
+                    '#FC5EFA', '#FC61FA', '#FC64FA', '#FD68F5', '#FD6CFB'
+                ];
+                return pinkColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            isReddish(color) {
+                if (!color) return false;
+                const redColors = [
+                    '#F02613', '#F83421', '#FB3725', '#FC3926', '#FF2900', '#FF330B',
+                    '#FF3D19', '#FF3D1A', '#FF3F1A', '#FF3F2E', '#FF402F', '#FF4432',
+                    '#FF4723', '#FF4824', '#FF4927', '#FF4A28', '#FF4E3E', '#FF502D',
+                    '#FF502F', '#FF512E', '#FF5130', '#FF5245', '#FF5433', '#FF5434',
+                    '#FF5534', '#FF5736', '#FF5848', '#FF5A38', '#FF5A3A', '#FF5B3B',
+                    '#FF5D3F', '#FF5E3C', '#FF5F41', '#FF6245', '#FF6456', '#FF675B',
+                    '#FF6F61', '#FF7F74', '#FF877E', '#FFA08C'
+                ];
+                return redColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+            
+            categorizeTextElement(element) {
+                if (element.tagName !== 'path') return;
+                
+                const fill = element.getAttribute('fill');
+                const stroke = element.getAttribute('stroke');
+                
+                // Only categorize green elements as text (since all text is green)
+                const isGreen = (fill === '#00BD00') || (stroke === '#00BD00');
+                if (!isGreen) return;
+                
+                const d = element.getAttribute('d');
+                if (!d) return;
+                
+                const coords = this.extractCoordinates(d);
+                if (!coords.length) return;
+                
+                const x = coords[0].x;
+                const y = coords[0].y;
+                
+                // Debug coordinate extraction
+                console.log(`Green element at (${x}, ${y})`);
+                
+                // Simplified text regions with more generous bounds
+                const textRegions = [
+                    { bounds: [272, 318, 225, 234], cluster: 'text-prompt' },
+                    { bounds: [504, 558, 225, 234], cluster: 'text-decoder' },
+                    { bounds: [360, 480, 540, 580], cluster: 'text-machine-encoding' },
+                    { bounds: [360, 480, 560, 580], cluster: 'text-encoding' },
+                    { bounds: [370, 460, 630, 650], cluster: 'text-territory' },
+                    { bounds: [580, 710, 640, 680], cluster: 'text-selected' },
+                    { bounds: [390, 450, 810, 830], cluster: 'text-atavic' },
+                    { bounds: [380, 460, 820, 850], cluster: 'text-contact' },
+                    { bounds: [380, 450, 840, 870], cluster: 'text-ontology' },
+                    { bounds: [450, 520, 830, 850], cluster: 'text-relational' },
+                    { bounds: [450, 520, 830, 850], cluster: 'text-synthesis' },
+                    { bounds: [390, 450, 840, 870], cluster: 'text-point' },
+                    { bounds: [530, 670, 890, 920], cluster: 'text-precognitive' },
+                    { bounds: [220, 290, 950, 980], cluster: 'text-lateral' },
+                    { bounds: [220, 290, 960, 980], cluster: 'text-poetics' },
+                    { bounds: [440, 560, 950, 970], cluster: 'text-manifestation' },
+                    { bounds: [340, 400, 950, 970], cluster: 'text-object' },
+                    { bounds: [350, 470, 350, 380], cluster: 'text-observer' },
+                    { bounds: [130, 150, 680, 810], cluster: 'text-ontogeny' }
+                ];
+                
+                for (const region of textRegions) {
+                    const [minX, maxX, minY, maxY] = region.bounds;
+                    if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
+                        console.log(`Matched green element to ${region.cluster} at (${x}, ${y})`);
+                        element.setAttribute('data-cluster', region.cluster);
+                        return;
+                    }
+                }
+            }
+            
+            extractCoordinates(pathData) {
+                const coords = [];
+                const matches = pathData.match(/[ml]\s*([0-9.\-]+)\s*([0-9.\-]+)/gi);
+                
+                if (matches) {
+                    matches.forEach(match => {
+                        const parts = match.replace(/[ml]/i, '').trim().split(/\s+/);
+                        if (parts.length >= 2) {
+                            coords.push({
+                                x: parseFloat(parts[0]),
+                                y: parseFloat(parts[1])
+                            });
+                        }
+                    });
+                }
+                
+                return coords;
+            }
+            
+            addClickableNavigation() {
+                if (!this.svg) return;
+                
+                let clickableCount = 0;
+                
+                Object.keys(this.navigationMapping).forEach(clusterId => {
+                    const elements = this.svg.querySelectorAll(`[data-cluster="${clusterId}"]`);
+                    const navData = this.navigationMapping[clusterId];
+                    
+                    elements.forEach(element => {
+                        element.classList.add('clickable-element');
+                        element.style.cursor = 'pointer';
+                        element.title = `Click to explore: ${navData.name}`;
+                        
+                        element.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            this.navigateToPage(navData);
+                        });
+                        
+                        clickableCount++;
+                    });
+                });
+                
+                console.log(`Made ${clickableCount} elements clickable`);
+            }
+            
+            navigateToPage(navData) {
+                // Check if page exists before navigating
+                fetch(navData.url, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = navData.url;
+                        } else {
+                            // Page doesn't exist, show friendly message
+                            this.showPageNotFound(navData);
+                        }
+                    })
+                    .catch(() => {
+                        // Network error or page doesn't exist
+                        this.showPageNotFound(navData);
+                    });
+            }
+            
+            showPageNotFound(navData) {
+                const message = `
+                    <div style="text-align: center;">
+                        <h3>🔗 ${navData.name}</h3>
+                        <p>This page is not yet available.</p>
+                        <p><small>Expected at: <code>${navData.url}</code></small></p>
+                        <button onclick="this.parentElement.parentElement.remove()" 
+                                style="margin-top: 10px; padding: 5px 10px; background: rgba(0,189,0,0.1); 
+                                       border: 1px solid #00bd00; color: #00bd00; border-radius: 3px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                `;
+                
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                    background: rgba(0,0,0,0.8); z-index: 1000; 
+                    display: flex; align-items: center; justify-content: center;
+                `;
+                
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    background: #000; border: 1px solid #00bd00; border-radius: 5px; 
+                    padding: 20px; color: #00bd00; font-family: 'Courier New', monospace; 
+                    max-width: 400px; backdrop-filter: blur(10px);
+                `;
+                modal.innerHTML = message;
+                
+                overlay.appendChild(modal);
+                document.body.appendChild(overlay);
+                
+                // Auto-close after 5 seconds
+                setTimeout(() => {
+                    if (overlay.parentElement) {
+                        overlay.remove();
+                    }
+                }, 5000);
+            }
+            
+            setupEventListeners() {
+                const container = document.getElementById('diagramContainer');
+                const wrapper = document.getElementById('diagramWrapper');
+                
+                // Pan functionality disabled - diagram stays centered
+                
+                // Mouse wheel zoom disabled
+                
+                // Prevent context menu on right click
+                container.addEventListener('contextmenu', (e) => e.preventDefault());
+            }
+            
+            
+            zoom(factor, centerX, centerY) {
+                const newScale = Math.max(this.minScale, Math.min(this.maxScale, this.currentScale * factor));
+                
+                if (newScale !== this.currentScale) {
+                    // Fix zoom to center properly
+                    const scaleFactor = newScale / this.currentScale;
+                    
+                    // Get the current position relative to the zoom center
+                    const relativeX = (centerX - this.currentX) / this.currentScale;
+                    const relativeY = (centerY - this.currentY) / this.currentScale;
+                    
+                    // Update scale
+                    this.currentScale = newScale;
+                    
+                    // Update position to maintain the zoom center
+                    this.currentX = centerX - (relativeX * this.currentScale);
+                    this.currentY = centerY - (relativeY * this.currentScale);
+                    
+                    this.updateTransform();
+                }
+            }
+            
+            updateTransform() {
+                const wrapper = document.getElementById('diagramWrapper');
+                wrapper.style.transform = `translate(${this.currentX}px, ${this.currentY}px) scale(${this.currentScale})`;
+            }
+            
+            
+            showError(message) {
+                document.getElementById('loading').style.display = 'none';
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.innerHTML = `
+                    <h3>⚠️ Error Loading Diagram</h3>
+                    <p>${message}</p>
+                    <button onclick="location.reload()" 
+                            style="margin-top: 10px; padding: 5px 10px; background: rgba(0,189,0,0.1); 
+                                   border: 1px solid #00bd00; color: #00bd00; border-radius: 3px; cursor: pointer;">
+                        Retry
+                    </button>
+                `;
+                
+                document.body.appendChild(errorDiv);
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ATAVICDiagramViewer();
+        });
+    </script>
+</body>
+</html>

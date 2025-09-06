@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAVIC Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            color: #00bd00;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .diagram-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+        }
+
+        .diagram-wrapper {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            max-width: 100%;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            background: #000000;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00bd00;
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            min-width: 250px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .control-panel h3 {
+            color: #00bd00;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cluster-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #333;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #00bd00;
+        }
+
+        .toggle-switch .slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active .slider {
+            transform: translateX(26px);
+        }
+
+        .cluster-label {
+            color: #00bd00;
+            font-size: 12px;
+            min-width: 100px;
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 12px;
+            z-index: 999;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .control-panel {
+                top: 10px;
+                right: 10px;
+                padding: 15px;
+                font-size: 12px;
+                min-width: 180px;
+            }
+            
+            .toggle-switch {
+                width: 40px;
+                height: 20px;
+            }
+            
+            .toggle-switch .slider {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .toggle-switch.active .slider {
+                transform: translateX(20px);
+            }
+        }
+
+        /* Hidden state for clusters */
+        .cluster-hidden {
+            opacity: 0.1 !important;
+            filter: grayscale(1) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        /* Zoom and pan controls */
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s ease;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(0, 189, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="diagram-wrapper" id="diagramWrapper">
+            <!-- The SVG content will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel" id="controlPanel">
+        <h3>Diagram Controls</h3>
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="yellow">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">Yellow Elements</span>
+        </div>
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="blue">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">Blue Elements</span>
+        </div>
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="pink">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">Pink/Magenta Elements</span>
+        </div>
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="red">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">Red/Orange Elements</span>
+        </div>
+        
+        <!-- Text Elements Section -->
+        <hr style="border-color: #00bd00; margin: 15px 0;">
+        <h3>Text Elements</h3>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-machine-encoding">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"MACHINE ENCODING"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-encoding">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"ENCODING"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-territory">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"TERRITORY"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-relational">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"Relational"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-contact">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"CONTACT"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-atavic">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"ATAVIC"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-ontology">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"ONTOLOGY"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-point">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"POINT"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-synthesis">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"Synthesis"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-precognitive">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"Precognitive structures"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-ontogeny">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"ONTOGENY" (vertical)</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-selected">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"SELECTED"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-decoder">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"DECODER"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-lateral">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"LATERAL"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-poetics">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"POETICS"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-manifestation">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"MANIFESTATION"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-object">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"OBJECT"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-prompt">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"PROMPT"</span>
+        </div>
+        
+        <div class="cluster-control">
+            <div class="toggle-switch active" data-cluster="text-observer">
+                <div class="slider"></div>
+            </div>
+            <span class="cluster-label">"OBSERVER"</span>
+        </div>
+    </div>
+
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+        ATAVIC Interactive Diagram | Toggle controls to show/hide elements
+    </div>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomIn">+</button>
+        <button class="zoom-btn" id="zoomOut">−</button>
+        <button class="zoom-btn" id="resetZoom">⌂</button>
+    </div>
+
+    <script>
+        class ATAVICViewer {
+            constructor() {
+                this.currentScale = 1;
+                this.currentX = 0;
+                this.currentY = 0;
+                this.isDragging = false;
+                this.startX = 0;
+                this.startY = 0;
+                
+                this.loadSVG();
+                this.setupEventListeners();
+            }
+
+            async loadSVG() {
+                try {
+                    const response = await fetch('ATAVIC.svg');
+                    const svgText = await response.text();
+                    
+                    const wrapper = document.getElementById('diagramWrapper');
+                    wrapper.innerHTML = svgText;
+                    
+                    const svg = wrapper.querySelector('svg');
+                    if (svg) {
+                        // Ensure the SVG has proper styling
+                        svg.style.background = '#000000';
+                        svg.style.maxWidth = '100%';
+                        svg.style.maxHeight = '100vh';
+                        svg.style.width = 'auto';
+                        svg.style.height = 'auto';
+                        
+                        this.svg = svg;
+                        this.setupZoomPan();
+                        this.colorizeElements();
+                    }
+                } catch (error) {
+                    console.error('Error loading SVG:', error);
+                    document.getElementById('diagramWrapper').innerHTML = `
+                        <div style="color: #00bd00; text-align: center;">
+                            <p>Error loading ATAVIC.svg</p>
+                            <p style="font-size: 12px; margin-top: 10px;">Make sure ATAVIC.svg is in the same directory</p>
+                        </div>
+                    `;
+                }
+            }
+
+            setupEventListeners() {
+                // Toggle switches
+                const toggles = document.querySelectorAll('.toggle-switch');
+                toggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        this.handleToggle(toggle);
+                    });
+                });
+
+                // Zoom controls
+                document.getElementById('zoomIn').addEventListener('click', () => this.zoom(1.2));
+                document.getElementById('zoomOut').addEventListener('click', () => this.zoom(0.8));
+                document.getElementById('resetZoom').addEventListener('click', () => this.resetZoom());
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case '+':
+                        case '=':
+                            this.zoom(1.2);
+                            break;
+                        case '-':
+                            this.zoom(0.8);
+                            break;
+                        case '0':
+                            this.resetZoom();
+                            break;
+                    }
+                });
+            }
+
+            setupZoomPan() {
+                if (!this.svg) return;
+
+                const wrapper = this.svg.parentElement;
+
+                // Mouse wheel for zooming
+                wrapper.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const delta = e.deltaY < 0 ? 1.1 : 0.9;
+                    this.zoom(delta);
+                });
+
+                // Mouse drag for panning
+                wrapper.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    this.startX = e.clientX - this.currentX;
+                    this.startY = e.clientY - this.currentY;
+                    wrapper.style.cursor = 'grabbing';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!this.isDragging) return;
+                    
+                    this.currentX = e.clientX - this.startX;
+                    this.currentY = e.clientY - this.startY;
+                    this.updateTransform();
+                });
+
+                document.addEventListener('mouseup', () => {
+                    this.isDragging = false;
+                    wrapper.style.cursor = 'grab';
+                });
+
+                wrapper.style.cursor = 'grab';
+            }
+
+            zoom(factor) {
+                this.currentScale *= factor;
+                this.currentScale = Math.max(0.1, Math.min(10, this.currentScale));
+                this.updateTransform();
+            }
+
+            resetZoom() {
+                this.currentScale = 1;
+                this.currentX = 0;
+                this.currentY = 0;
+                this.updateTransform();
+            }
+
+            updateTransform() {
+                if (!this.svg) return;
+                this.svg.style.transform = `translate(${this.currentX}px, ${this.currentY}px) scale(${this.currentScale})`;
+            }
+
+            colorizeElements() {
+                if (!this.svg) return;
+
+                // Add data attributes to help with clustering
+                const elements = this.svg.querySelectorAll('path, ellipse, rect, text');
+                
+                elements.forEach(element => {
+                    const fill = element.getAttribute('fill');
+                    const stroke = element.getAttribute('stroke');
+                    
+                    // First check if it's a text element based on position and context
+                    this.categorizeTextElement(element);
+                    
+                    // Then categorize by color (if not already categorized as text)
+                    if (!element.hasAttribute('data-cluster')) {
+                        if (this.isYellowish(fill) || this.isYellowish(stroke)) {
+                            element.setAttribute('data-cluster', 'yellow');
+                        } else if (this.isBluish(fill) || this.isBluish(stroke)) {
+                            element.setAttribute('data-cluster', 'blue');
+                        } else if (this.isPinkish(fill) || this.isPinkish(stroke)) {
+                            element.setAttribute('data-cluster', 'pink');
+                        } else if (this.isReddish(fill) || this.isReddish(stroke)) {
+                            element.setAttribute('data-cluster', 'red');
+                        }
+                    }
+                });
+            }
+
+            isYellowish(color) {
+                if (!color) return false;
+                const yellowColors = ['#DCEF0E', '#E6FF41', '#CFFD47', '#EBFF2E', '#F7FF52'];
+                return yellowColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+
+            isBluish(color) {
+                if (!color) return false;
+                const blueColors = ['#2F72FF', '#5086FF', '#1862FF', '#4080FF', '#2970FF'];
+                return blueColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+
+            isPinkish(color) {
+                if (!color) return false;
+                const pinkColors = ['#FD6CFB', '#FB54F9', '#FC64FA', '#FE7FFC', '#FA4EF8'];
+                return pinkColors.some(c => color.includes(c.toLowerCase()) || color.includes(c));
+            }
+
+            isReddish(color) {
+                if (!color) return false;
+                const redColors = ['#FF', '#F0', '#F1', '#F2', '#F3', '#F4', '#F5', '#F6', '#F7', '#F8', '#F9', '#FA', '#FB', '#FC', '#FD', '#FE'];
+                return redColors.some(prefix => color.includes(prefix));
+            }
+
+            categorizeTextElement(element) {
+                if (element.tagName !== 'path') return;
+                
+                const d = element.getAttribute('d');
+                if (!d) return;
+                
+                // Extract coordinates from path data to determine text regions
+                const pathData = d.toLowerCase();
+                const coords = this.extractCoordinates(d);
+                
+                if (!coords.length) return;
+                
+                const x = coords[0].x;
+                const y = coords[0].y;
+                
+                // Define text regions based on coordinate analysis of the SVG
+                // These coordinates are approximated from the actual text positions in the SVG
+                
+                // "MACHINE ENCODING" region (around lines 1778)
+                if (x >= 370 && x <= 460 && y >= 544 && y <= 572) {
+                    element.setAttribute('data-cluster', 'text-machine-encoding');
+                    return;
+                }
+                
+                // "ENCODING" region (around lines 1779)
+                if (x >= 368 && x <= 457 && y >= 561 && y <= 572) {
+                    element.setAttribute('data-cluster', 'text-encoding');
+                    return;
+                }
+                
+                // "TERRITORY" region (around lines 1798)
+                if (x >= 373 && x <= 453 && y >= 637 && y <= 646) {
+                    element.setAttribute('data-cluster', 'text-territory');
+                    return;
+                }
+                
+                // "Relational" text (around lines 1859+)
+                if (x >= 458 && x <= 513 && y >= 821 && y <= 830) {
+                    element.setAttribute('data-cluster', 'text-relational');
+                    return;
+                }
+                
+                // "CONTACT" region (around lines 1881)
+                if (x >= 387 && x <= 447 && y >= 830 && y <= 839) {
+                    element.setAttribute('data-cluster', 'text-contact');
+                    return;
+                }
+                
+                // "ATAVIC" region (looking for title-like text)
+                if (x >= 398 && x <= 435 && y >= 813 && y <= 822) {
+                    element.setAttribute('data-cluster', 'text-atavic');
+                    return;
+                }
+                
+                // "ONTOLOGY" region (around lines 1882)
+                if (x >= 393 && x <= 431 && y >= 848 && y <= 857) {
+                    element.setAttribute('data-cluster', 'text-ontology');
+                    return;
+                }
+                
+                // "POINT" region (around lines 1882)
+                if (x >= 401 && x <= 421 && y >= 848 && y <= 857) {
+                    element.setAttribute('data-cluster', 'text-point');
+                    return;
+                }
+                
+                // "Synthesis" text
+                if (x >= 463 && x <= 512 && y >= 837 && y <= 846) {
+                    element.setAttribute('data-cluster', 'text-synthesis');
+                    return;
+                }
+                
+                // "Precognitive structures" text (bottom text area)
+                if (x >= 538 && x <= 658 && y >= 897 && y <= 908) {
+                    element.setAttribute('data-cluster', 'text-precognitive');
+                    return;
+                }
+                
+                // Vertical text on left side (O-N-T-O-G-E-N-Y)
+                if (x >= 134 && x <= 143 && y >= 684 && y <= 806) {
+                    element.setAttribute('data-cluster', 'text-ontogeny');
+                    return;
+                }
+                
+                // "SELECTED" text (around lines 554)
+                if (x >= 584 && x <= 702 && y >= 643 && y <= 677) {
+                    element.setAttribute('data-cluster', 'text-selected');
+                    return;
+                }
+                
+                // "DECODER" text (around lines 551-554)
+                if (x >= 504 && x <= 558 && y >= 225 && y <= 234) {
+                    element.setAttribute('data-cluster', 'text-decoder');
+                    return;
+                }
+                
+                // "LATERAL" text (part of LATERAL POETICS)
+                if (x >= 232 && x <= 280 && y >= 953 && y <= 974) {
+                    element.setAttribute('data-cluster', 'text-lateral');
+                    return;
+                }
+                
+                // "POETICS" text (part of LATERAL POETICS)
+                if (x >= 226 && x <= 278 && y >= 964 && y <= 974) {
+                    element.setAttribute('data-cluster', 'text-poetics');
+                    return;
+                }
+                
+                // "MANIFESTATION" text (upper text)
+                if (x >= 457 && x <= 548 && y >= 956 && y <= 966) {
+                    element.setAttribute('data-cluster', 'text-manifestation');
+                    return;
+                }
+                
+                // "OBJECT" text 
+                if (x >= 346 && x <= 386 && y >= 956 && y <= 966) {
+                    element.setAttribute('data-cluster', 'text-object');
+                    return;
+                }
+                
+                // "PROMPT" text
+                if (x >= 272 && x <= 318 && y >= 225 && y <= 234) {
+                    element.setAttribute('data-cluster', 'text-prompt');
+                    return;
+                }
+                
+                // "OBSERVER" text
+                if (x >= 363 && x <= 459 && y >= 359 && y <= 373) {
+                    element.setAttribute('data-cluster', 'text-observer');
+                    return;
+                }
+            }
+            
+            extractCoordinates(pathData) {
+                const coords = [];
+                const matches = pathData.match(/[ml]\s*([0-9.\-]+)\s*([0-9.\-]+)/gi);
+                
+                if (matches) {
+                    matches.forEach(match => {
+                        const parts = match.replace(/[ml]/i, '').trim().split(/\s+/);
+                        if (parts.length >= 2) {
+                            coords.push({
+                                x: parseFloat(parts[0]),
+                                y: parseFloat(parts[1])
+                            });
+                        }
+                    });
+                }
+                
+                return coords;
+            }
+
+            handleToggle(toggle) {
+                const isActive = toggle.classList.contains('active');
+                const clusterType = toggle.dataset.cluster;
+
+                // Toggle the switch visual state
+                toggle.classList.toggle('active');
+
+                // Toggle cluster visibility
+                this.toggleCluster(clusterType, !isActive);
+            }
+
+            toggleCluster(clusterType, show) {
+                if (!this.svg) return;
+
+                const elements = this.svg.querySelectorAll(`[data-cluster="${clusterType}"]`);
+                
+                elements.forEach(element => {
+                    if (show) {
+                        element.classList.remove('cluster-hidden');
+                    } else {
+                        element.classList.add('cluster-hidden');
+                    }
+                });
+            }
+        }
+
+        // Initialize the viewer when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ATAVICViewer();
+        });
+    </script>
+</body>
+</html>

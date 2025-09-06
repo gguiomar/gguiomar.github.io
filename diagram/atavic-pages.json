@@ -1,0 +1,75 @@
+{
+  "template": "<!DOCTYPE html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">    \n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n\n<title>{{TITLE}} - ATAVIC Framework</title>\n<link href=\"../docs/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg==\" crossorigin=\"anonymous\">\n<link rel=\"stylesheet\" href=\"../docs/mdb.min.css\" integrity=\"sha512-RO38pBRxYH3SoOprtPTD86JFOclM51/XTIdEPh5j8sj4tp8jmQIx26twG52UaLi//hQldfrh7e51WzP9wuP32Q==\" crossorigin=\"anonymous\">\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\" integrity=\"sha512-ZQzr1Bb6UcE6U7xiZOTfKZPEHEnSQPh+I8W7oFueC/5D5evuMbkE0K+cNPeUb2x4V7ugtbIvL8YksOJ3qo0z7A==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />\n<link rel=\"stylesheet\" href=\"../docs/main.css\">\n\n<!-- MathJax Configuration -->\n<script>\nMathJax = {\n  tex: {\n    inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],\n    displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],\n    processEscapes: true,\n    processEnvironments: true\n  },\n  options: {\n    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']\n  }\n};\n</script>\n<!-- Load MathJax -->\n<script type=\"text/javascript\" id=\"MathJax-script\" async\n  src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\">\n</script>\n\n<style>\n/* Use the same black theme as the main site */\n:root {\n    --global-bg-color: #000000;\n    --global-text-color: #ffffff;\n    --global-theme-color: #9acbff;\n    --global-hover-color: #ff0606;\n}\n\nbody {\n    background-color: var(--global-bg-color) !important;\n    color: var(--global-text-color) !important;\n}\n\nh1, h2, h3, h4, h5, h6, p, div, span {\n    color: var(--global-text-color) !important;\n}\n\na {\n    color: var(--global-theme-color) !important;\n}\n\na:hover {\n    color: var(--global-hover-color) !important;\n    text-decoration: underline !important;\n}\n</style>\n\n</head>\n\n<body>\n<div class=\"container mt-5\">\n    <!-- Page title - centered -->\n    <h3 style=\"margin-bottom: 40px; text-align: center;\"><strong>{{TITLE}}</strong></h3>\n    \n    <!-- Content -->\n    <div style=\"max-width: 800px; margin: 0 auto; font-size: 16px; line-height: 1.8;\">\n        <p align=\"justify\">\n            This section represents {{TITLE}} within the ATAVIC framework.\n        </p>\n        \n        <h4 style=\"margin-top: 40px; margin-bottom: 20px;\"><strong>Overview</strong></h4>\n        \n        <p align=\"justify\">\n            Add your content about {{TITLE}} here. You can include mathematical expressions using MathJax, \n            such as inline equations like $E = mc^2$ or display equations:            \n        </p>\n        \n        $$\n        \\text{Add your mathematical content here}\n        $$\n        \n        <h4 style=\"margin-top: 40px; margin-bottom: 20px;\"><strong>Related Concepts</strong></h4>\n        \n        <p align=\"justify\">\n            Describe how {{TITLE}} relates to other elements in the ATAVIC framework.\n        </p>\n        \n        <!-- For including images -->\n        <!-- <div style=\"margin: 40px 0;\">\n            <img src=\"path-to-image.jpg\" class=\"img-fluid\" alt=\"Image description\">\n            <p style=\"font-size: 14px; color: #666; margin-top: 10px; text-align: center;\">Image caption</p>\n        </div> -->\n    </div>\n</div>\n\n<!-- Scripts -->\n<script src=\"../docs/jquery.min.js\" integrity=\"sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==\" crossorigin=\"anonymous\"></script>\n<script src=\"../docs/bootstrap.min.js\" integrity=\"sha512-M5KW3ztuIICmVIhjSqXe01oV2bpe248gOxqmlcYrEzAvws7Pw3z6BK0iGbrwvdrUQUhi3eXgtxp5I8PDo9YfjQ==\" crossorigin=\"anonymous\"></script>\n<script src=\"../docs/mdb.min.js\" integrity=\"sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==\" crossorigin=\"anonymous\"></script>\n\n</body>\n</html>",
+  "pages": [
+    {
+      "elementId": "text-machine-encoding",
+      "title": "MACHINE ENCODING",
+      "filename": "machine-encoding.html"
+    },
+    {
+      "elementId": "text-relational",
+      "title": "RELATIONAL",
+      "filename": "relational.html"
+    },
+    {
+      "elementId": "text-atavic",
+      "title": "ATAVIC",
+      "filename": "atavic.html"
+    },
+    {
+      "elementId": "text-precognitive",
+      "title": "PRECOGNITIVE STRUCTURES",
+      "filename": "precognitive.html"
+    },
+    {
+      "elementId": "text-selected",
+      "title": "SELECTED",
+      "filename": "selected.html"
+    },
+    {
+      "elementId": "text-decoder",
+      "title": "DECODER",
+      "filename": "decoder.html"
+    },
+    {
+      "elementId": "text-poetics",
+      "title": "POETICS",
+      "filename": "poetics.html"
+    },
+    {
+      "elementId": "text-manifestation",
+      "title": "MANIFESTATION",
+      "filename": "manifestation.html"
+    },
+    {
+      "elementId": "text-object",
+      "title": "OBJECT",
+      "filename": "object.html"
+    },
+    {
+      "elementId": "text-prompt",
+      "title": "PROMPT",
+      "filename": "prompt.html"
+    },
+    {
+      "elementId": "yellow",
+      "title": "YELLOW ELEMENTS",
+      "filename": "yellow-elements.html"
+    },
+    {
+      "elementId": "blue",
+      "title": "BLUE ELEMENTS",
+      "filename": "blue-elements.html"
+    },
+    {
+      "elementId": "pink",
+      "title": "PINK ELEMENTS",
+      "filename": "pink-elements.html"
+    },
+    {
+      "elementId": "red",
+      "title": "RED ELEMENTS",
+      "filename": "red-elements.html"
+    }
+  ]
+}

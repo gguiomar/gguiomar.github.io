@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAVIC Text Element Mapper</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00bd00;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #00bd00;
+            text-align: center;
+            border-bottom: 2px solid #00bd00;
+            padding-bottom: 10px;
+        }
+
+        .element-item {
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .element-label {
+            font-weight: bold;
+            color: #00bd00;
+            margin-bottom: 8px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .input-group label {
+            min-width: 80px;
+            font-size: 12px;
+        }
+
+        input[type="text"], input[type="url"] {
+            flex: 1;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="text"]:focus, input[type="url"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px #00bd00;
+        }
+
+        .buttons {
+            text-align: center;
+            margin: 30px 0;
+            gap: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            background: rgba(0, 189, 0, 0.1);
+            border: 2px solid #00bd00;
+            color: #00bd00;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 189, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .output {
+            background: rgba(0, 189, 0, 0.05);
+            border: 1px solid #00bd00;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .output h3 {
+            margin-top: 0;
+            color: #00bd00;
+        }
+
+        .code-block {
+            background: rgba(0, 189, 0, 0.1);
+            padding: 15px;
+            border-left: 3px solid #00bd00;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            float: right;
+            background: transparent;
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            padding: 4px 8px;
+            font-size: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 189, 0, 0.1);
+        }
+
+        .status {
+            text-align: center;
+            padding: 10px;
+            font-style: italic;
+            color: #00bd0080;
+        }
+
+        .preview-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #00bd00;
+            border-radius: 5px;
+        }
+
+        .clickable-preview {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 12px;
+            background: rgba(0, 189, 0, 0.1);
+            border: 1px solid #00bd00;
+            color: #00bd00;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .clickable-preview:hover {
+            background: rgba(0, 189, 0, 0.2);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 ATAVIC Text Element Mapper</h1>
+        
+        <p class="status">
+            Map text elements to meaningful names and URLs to create clickable navigation
+        </p>
+
+        <div id="elements-container">
+            <!-- Text elements will be populated here -->
+        </div>
+
+        <div class="buttons">
+            <button class="btn" onclick="generateDictionary()">📖 Generate Dictionary</button>
+            <button class="btn" onclick="generateJS()">💻 Generate JS Code</button>
+            <button class="btn" onclick="previewClickable()">👀 Preview Links</button>
+            <button class="btn" onclick="resetAll()">🔄 Reset All</button>
+        </div>
+
+        <div id="output" class="output" style="display: none;"></div>
+        
+        <div id="preview" class="preview-section" style="display: none;"></div>
+    </div>
+
+    <script>
+        // All the text elements we identified
+        const textElements = [
+            'text-machine-encoding',
+            'text-encoding', 
+            'text-territory',
+            'text-relational',
+            'text-contact',
+            'text-atavic',
+            'text-ontology',
+            'text-point',
+            'text-synthesis',
+            'text-precognitive',
+            'text-ontogeny',
+            'text-selected',
+            'text-decoder',
+            'text-lateral',
+            'text-poetics',
+            'text-manifestation',
+            'text-object',
+            'text-prompt',
+            'text-observer'
+        ];
+
+        // Convert cluster names to readable labels
+        function formatLabel(clusterName) {
+            return clusterName
+                .replace('text-', '')
+                .replace(/-/g, ' ')
+                .toUpperCase()
+                .replace('MACHINE ENCODING', 'MACHINE ENCODING')
+                .replace('PRECOGNITIVE', 'PRECOGNITIVE STRUCTURES');
+        }
+
+        // Initialize the form
+        function initializeForm() {
+            const container = document.getElementById('elements-container');
+            
+            textElements.forEach(element => {
+                const div = document.createElement('div');
+                div.className = 'element-item';
+                div.innerHTML = `
+                    <div class="element-label">${formatLabel(element)}</div>
+                    <div class="input-group">
+                        <label>Name:</label>
+                        <input type="text" 
+                               id="name-${element}" 
+                               placeholder="Enter display name (e.g., 'Artificial Intelligence')"
+                               value="${formatLabel(element)}">
+                    </div>
+                    <div class="input-group">
+                        <label>URL:</label>
+                        <input type="url" 
+                               id="url-${element}" 
+                               placeholder="Enter URL (e.g., 'pages/ai-theory.html' or 'https://...')">
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Collect all data from form
+        function collectData() {
+            const data = {};
+            
+            textElements.forEach(element => {
+                const name = document.getElementById(`name-${element}`).value;
+                const url = document.getElementById(`url-${element}`).value;
+                
+                if (name && url) {
+                    data[element] = {
+                        name: name,
+                        url: url,
+                        original: formatLabel(element)
+                    };
+                }
+            });
+            
+            return data;
+        }
+
+        // Generate dictionary format
+        function generateDictionary() {
+            const data = collectData();
+            const output = document.getElementById('output');
+            
+            const dictContent = JSON.stringify(data, null, 2);
+            
+            output.innerHTML = `
+                <h3>📖 Element Dictionary</h3>
+                <button class="copy-btn" onclick="copyToClipboard('dictionary')">Copy</button>
+                <div class="code-block" id="dictionary">${dictContent}</div>
+                
+                <h3>📝 Summary</h3>
+                <p>Found ${Object.keys(data).length} mapped elements out of ${textElements.length} total elements.</p>
+            `;
+            
+            output.style.display = 'block';
+        }
+
+        // Generate JavaScript implementation code
+        function generateJS() {
+            const data = collectData();
+            const output = document.getElementById('output');
+            
+            const jsCode = `
+// Text Element Navigation Dictionary
+const textElementNavigation = ${JSON.stringify(data, null, 2)};
+
+// Add to your ATAVICViewer class
+addClickableNavigation() {
+    if (!this.svg) return;
+    
+    Object.keys(textElementNavigation).forEach(clusterId => {
+        const elements = this.svg.querySelectorAll(\`[data-cluster="\${clusterId}"]\`);
+        const navData = textElementNavigation[clusterId];
+        
+        elements.forEach(element => {
+            element.style.cursor = 'pointer';
+            element.title = \`Click to visit: \${navData.name}\`;
+            
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Option 1: Open in same window
+                window.location.href = navData.url;
+                
+                // Option 2: Open in new tab (uncomment to use)
+                // window.open(navData.url, '_blank');
+                
+                console.log(\`Navigating to: \${navData.name} (\${navData.url})\`);
+            });
+            
+            // Add hover effect
+            element.addEventListener('mouseenter', () => {
+                element.style.opacity = '0.8';
+                element.style.transform = 'scale(1.05)';
+                element.style.transition = 'all 0.2s ease';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.opacity = '1';
+                element.style.transform = 'scale(1)';
+            });
+        });
+    });
+}
+
+// Call this method after loading SVG in your constructor
+// this.addClickableNavigation();`;
+
+            output.innerHTML = `
+                <h3>💻 JavaScript Implementation</h3>
+                <button class="copy-btn" onclick="copyToClipboard('jscode')">Copy</button>
+                <div class="code-block" id="jscode">${jsCode}</div>
+                
+                <h3>🚀 Integration Instructions</h3>
+                <p>1. Add the above code to your viewer.html file</p>
+                <p>2. Call <code>this.addClickableNavigation()</code> in your ATAVICViewer constructor after <code>this.loadSVG()</code></p>
+                <p>3. Create the corresponding HTML pages for each URL you specified</p>
+                <p>4. Test the clickable elements in your diagram</p>
+            `;
+            
+            output.style.display = 'block';
+        }
+
+        // Preview clickable links
+        function previewClickable() {
+            const data = collectData();
+            const preview = document.getElementById('preview');
+            
+            let previewHTML = '<h3>👀 Clickable Links Preview</h3><p>These are the links that will be created:</p>';
+            
+            Object.values(data).forEach(item => {
+                previewHTML += `<a href="${item.url}" class="clickable-preview" target="_blank">${item.name}</a>`;
+            });
+            
+            if (Object.keys(data).length === 0) {
+                previewHTML += '<p style="color: #ff6b6b;">No elements mapped yet. Fill in names and URLs above.</p>';
+            }
+            
+            preview.innerHTML = previewHTML;
+            preview.style.display = 'block';
+        }
+
+        // Reset all inputs
+        function resetAll() {
+            if (confirm('Are you sure you want to reset all inputs?')) {
+                textElements.forEach(element => {
+                    document.getElementById(`name-${element}`).value = formatLabel(element);
+                    document.getElementById(`url-${element}`).value = '';
+                });
+                
+                document.getElementById('output').style.display = 'none';
+                document.getElementById('preview').style.display = 'none';
+            }
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary success message
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = 'rgba(0, 189, 0, 0.3)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'transparent';
+                }, 2000);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>
