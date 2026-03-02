@@ -312,6 +312,18 @@ h1 {
   gap: 12px;
 }
 
+.nav-project-links-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .icon-link {
   text-decoration: none;
   border-bottom: 0;
@@ -350,6 +362,25 @@ a:focus-visible,
 a:active {
   opacity: 1;
   text-decoration-thickness: 2px;
+}
+
+@media (max-width: 640px) {
+  .name-row {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+
+  .nav-header-right {
+    flex-direction: column-reverse !important;
+    justify-content: flex-start !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+    margin: 0 0 6px !important;
+  }
+
+  .nav-project-links-inline {
+    gap: 12px !important;
+  }
 }
 
 .footer {
