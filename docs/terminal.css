@@ -397,6 +397,32 @@ a:active {
   .nav-project-links-inline {
     gap: 12px !important;
   }
+
+  .project-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .project-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-summary::marker {
+    content: "";
+  }
+
+  .project-summary::before {
+    content: "▸";
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1;
+  }
+
+  details[open] > .project-summary::before {
+    content: "▾";
+  }
 }
 
 .footer {
