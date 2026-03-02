@@ -236,6 +236,22 @@ h1 {
   padding-top: 6px;
 }
 
+.project-top-embed {
+  margin-bottom: 8px;
+}
+
+.project-preview-details {
+  margin-top: 2px;
+}
+
+.project-toggle-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
 .subheading {
   margin: 14px 0 8px;
   color: var(--muted);

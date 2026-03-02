@@ -14,44 +14,100 @@
   <h1>Projects</h1>
   <p class="subtitle">Open master thesis opportunities.</p>
 
+  <section class="card project-card project-with-preview">
+    <h2 class="project-title">Can you beat a language model?</h2>
+    <div class="media-frame project-top-embed">
+      <iframe src="https://ai.trt-bench.org/introduction" title="Can you beat a language model? task preview" frameborder="0" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="meta project-embed-note">If the preview does not load in your browser, open it directly: <a href="https://ai.trt-bench.org/introduction">ai.trt-bench.org/introduction</a>.</p>
+
+    <details class="project-dropdown project-preview-details">
+      <summary class="project-summary">
+        <span class="project-toggle-label">Project details</span>
+      </summary>
+      <div class="project-content">
+        <h3 class="subheading">Background</h3>
+        <p>
+          Current LLMs are able to solve incredibly complex tasks, but these are very hard to interpret. Our goal is to
+          develop a suite of tasks that are minimalist but complex enough to extract complex behavior dynamics and latent
+          cognitive computations.
+        </p>
+
+        <h3 class="subheading">Master Thesis</h3>
+        <p>
+          You will help design and refine minimal probabilistic-reasoning tasks, run evaluations with humans and language
+          models, and build a reproducible analysis workflow to compare behavior across agents.
+        </p>
+
+        <h3 class="subheading">Your Benefits</h3>
+        <p>
+          You will gain hands-on experience in cognitive task design, human and LLM behavioral evaluation, and
+          data-driven analysis of latent reasoning strategies.
+        </p>
+
+        <h3 class="subheading">Related Work</h3>
+        <p>
+          <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em>.</a>
+        </p>
+        <p>
+          Are you better than contemporary LLMs at a simple task? <a href="https://ai.trt-bench.org/introduction">Try it yourself!</a>
+        </p>
+
+        <h3 class="subheading">Main Points</h3>
+        <ul>
+          <li>Defining novel tasks for probabilistic reasoning.</li>
+          <li>Obtaining behavioral data from humans and language models, and analyzing the results.</li>
+          <li>Python proficiency is required.</li>
+        </ul>
+
+        <h3 class="subheading">Starting Date + Duration</h3>
+        <p>This project is currently available as a master thesis.</p>
+      </div>
+    </details>
+  </section>
+
   <details class="card project-card project-dropdown">
     <summary class="project-summary">
-      <span class="project-title">Can you beat a language model?</span>
+      <span class="project-title">Continuous behavior clustering using Recurrent Neural Networks</span>
     </summary>
     <div class="project-content">
       <h3 class="subheading">Background</h3>
       <p>
-        Current LLMs are able to solve incredibly complex tasks, but these are very hard to interpret. Our goal is to
-        develop a suite of tasks that are minimalist but complex enough to extract complex behavior dynamics and latent
-        cognitive computations. This project is part of
-        <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026), <em>Reasoning aligns language models to human cognition</em></a>.
+        Current methods for behavior clustering often rely on ad hoc discrete assumptions about underlying latent
+        states. Recurrent Neural Networks can recover highly detailed clusters without enforcing those assumptions, as
+        shown in <a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025)</a>. Previous work on fly mating behavior
+        suggests discrete behavioral clusters, including <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7819718/">Calhoun et al. (2021)</a>;
+        this project aims to go deeper and characterize dynamics that may emerge when discreteness is not imposed a priori.
       </p>
 
       <h3 class="subheading">Master Thesis</h3>
       <p>
-        You will help design and refine minimal probabilistic-reasoning tasks, run evaluations with humans and language
-        models, and build a reproducible analysis workflow to compare behavior across agents.
+        You will design and implement an RNN-based pipeline for continuous behavior clustering, train models on
+        behavioral datasets, and evaluate how latent representations capture temporal structure beyond standard discrete
+        clustering approaches.
       </p>
 
       <h3 class="subheading">Your Benefits</h3>
       <p>
-        You will gain hands-on experience in cognitive task design, human and LLM behavioral evaluation, and
-        data-driven analysis of latent reasoning strategies.
+        You will gain hands-on experience with sequence modeling, unsupervised representation learning for behavior, and
+        quantitative analysis of latent dynamics in biological datasets.
       </p>
 
-      <h3 class="subheading">Related Work</h3>
-      <p>
-        <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em>.</a>
-        Are you better than contemporary LLMs at a simple task?
-        <a href="https://ai.trt-bench.org/introduction">Try it yourself!</a>
-      </p>
+      <h3 class="subheading">Related Works / Preliminary Readings</h3>
+      <ul>
+        <li><a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025). <em>Mechanistic Interpretability of RNNs emulating Hidden Markov Models</em>.</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7819718/">Calhoun et al. (2021). <em>Unsupervised identification of the internal states that shape natural behavior</em>.</a></li>
+      </ul>
 
       <h3 class="subheading">Main Points</h3>
       <ul>
-        <li>Defining novel tasks for probabilistic reasoning.</li>
-        <li>Obtaining behavioral data from humans and language models, and analyzing the results.</li>
-        <li>Python proficiency is required.</li>
+        <li>Defining novel analysis tasks for continuous behavior clustering.</li>
+        <li>Obtaining and analyzing behavior data from relevant biological datasets.</li>
+        <li>Python proficiency and experience training RNNs are required.</li>
       </ul>
+
+      <h3 class="subheading">Your Profile</h3>
+      <p>Strong Python skills and practical experience with training recurrent neural networks.</p>
 
       <h3 class="subheading">Starting Date + Duration</h3>
       <p>This project is currently available as a master thesis.</p>
