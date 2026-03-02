@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Gonçalo Guiomar</title>
+<link rel="stylesheet" href="docs/terminal.css">
+</head>
+<body>
+<main>
+  <div class="links top-links">
+    <a href="index.html">Home</a>
+  </div>
+  <h1>Projects</h1>
+  <p class="subtitle">Open master thesis opportunities.</p>
+
+  <details class="card project-card project-dropdown">
+    <summary class="project-summary">
+      <span class="project-title">Can you beat a language model?</span>
+    </summary>
+    <div class="project-content">
+      <h3 class="subheading">Background</h3>
+      <p>
+        Current LLMs are able to solve incredibly complex tasks, but these are very hard to interpret. Our goal is to
+        develop a suite of tasks that are minimalist but complex enough to extract complex behavior dynamics and latent
+        cognitive computations. This project is part of
+        <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026), <em>Reasoning aligns language models to human cognition</em></a>.
+      </p>
+
+      <h3 class="subheading">Master Thesis</h3>
+      <p>
+        You will help design and refine minimal probabilistic-reasoning tasks, run evaluations with humans and language
+        models, and build a reproducible analysis workflow to compare behavior across agents.
+      </p>
+
+      <h3 class="subheading">Your Benefits</h3>
+      <p>
+        You will gain hands-on experience in cognitive task design, human and LLM behavioral evaluation, and
+        data-driven analysis of latent reasoning strategies.
+      </p>
+
+      <h3 class="subheading">Related Work</h3>
+      <p>
+        <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em>.</a>
+        Are you better than contemporary LLMs at a simple task?
+        <a href="https://ai.trt-bench.org/introduction">Try it yourself!</a>
+      </p>
+
+      <h3 class="subheading">Main Points</h3>
+      <ul>
+        <li>Defining novel tasks for probabilistic reasoning.</li>
+        <li>Obtaining behavioral data from humans and language models, and analyzing the results.</li>
+        <li>Python proficiency is required.</li>
+      </ul>
+
+      <h3 class="subheading">Starting Date + Duration</h3>
+      <p>This project is currently available as a master thesis.</p>
+    </div>
+  </details>
+
+  <details class="card project-card project-dropdown">
+    <summary class="project-summary">
+      <span class="project-title">Understanding reasoning dynamics in Large Language Models</span>
+    </summary>
+    <div class="project-content">
+      <h3 class="subheading">Background</h3>
+      <p>
+        LLMs exhibit behavioral patterns and internal representations that partially align with human cognition and neural
+        activity. Psychophysics-inspired tasks provide fine-grained probes that allow us to understand their behavior at
+        a mechanistic level (Guiomar &amp; Torre et al., 2026). Mechanistic interpretability, however, still lacks reliable
+        ways to connect nuanced, time-extended model behavior to the internal representations and circuits that generate it.
+      </p>
+      <p>
+        If a model can condition its behavior on who is watching or what will be rewarded, the only reliable and relevant
+        mechanism is the underlying latent, time-extended computation which is not captured by current methods. Recovering
+        these latent computations through activation/attention dynamics provides a principled route to mechanistically
+        auditing strategic behavior, including evaluation-dependent or scheming-like failure modes.
+      </p>
+
+      <h3 class="subheading">Master Thesis</h3>
+      <p>
+        You will acquire and analyze a large dataset of activations and attention patterns from small-to-mid-scale LLMs
+        evaluated on human psychophysics-like tasks. The goal is to identify internal mechanisms that encode key cognitive
+        variables (belief, uncertainty, memory amongst others), and to link these mechanisms to behavior in a causal,
+        testable way.
+      </p>
+      <p>
+        A central objective is to characterize how models implement latent state mechanisms to perform probabilistic
+        reasoning and formalize mathematically this process.
+      </p>
+
+      <h3 class="subheading">Your Benefits</h3>
+      <p>
+        You will learn modern interpretability and analysis workflows, manage large-scale activation datasets, and build
+        LLM inference/evaluation pipelines on HPC. You will work at the interface of cognitive science, neuroscience, and
+        mechanistic auditing of reasoning models.
+      </p>
+
+      <h3 class="subheading">Related Works / Preliminary Readings</h3>
+      <ul>
+        <li><a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em></a></li>
+        <li>Kriegeskorte &amp; Kievit (2013). <em>Representational geometry: integrating cognition, computation, and the brain</em>.</li>
+        <li>Conmy et al. (2023). <em>Towards Automated Circuit Discovery for Mechanistic Interpretability</em>.</li>
+        <li>Jo et al. (2025). <em>Causal Path Tracing in Transformers</em>.</li>
+      </ul>
+
+      <h3 class="subheading">Your Profile</h3>
+      <p>Strong Python and PyTorch skills; familiarity with LLMs; interest in interpretability and cognitive science.</p>
+
+      <h3 class="subheading">Supervisors</h3>
+      <ul>
+        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
+        <li>Elia Torre (ETH, UZH)</li>
+        <li>Prof. Valerio Mante (ETH, UZH)</li>
+      </ul>
+
+      <h3 class="subheading">Starting Date + Duration</h3>
+      <p>This project is currently available as a master thesis.</p>
+    </div>
+  </details>
+
+  <details class="card project-card project-dropdown">
+    <summary class="project-summary">
+      <span class="project-title">Adaptive Computation in Reinforcement Learning</span>
+    </summary>
+    <div class="project-content">
+      <h3 class="subheading">Background</h3>
+      <p>
+        World models learn latent dynamics of environments and enable agents to plan or imagine trajectories rather than
+        interact purely online, improving sample efficiency. However, changes in the environment complexity lead to
+        inability of a lot of models to integrate novel aspects of underlying tasks, leading to sensitivity to
+        hyperparameter fine-tuning. Designing an adaptive World Model Rollout algorithm that improves training and
+        evaluation efficiency is then fundamental to building RL agents that can operate in complex environments.
+      </p>
+
+      <h3 class="subheading">Master Thesis</h3>
+      <p>
+        You will implement and evaluate a novel world-model training algorithm aimed at improving efficiency of World
+        Model Rollouts. The project combines algorithmic development with thorough empirical evaluation.
+      </p>
+
+      <h3 class="subheading">Research Directions</h3>
+      <ul>
+        <li>Implement reference world-model agents (TDMPC, DreamerV3-style) in PyTorch.</li>
+        <li>Standardize training pipelines and metrics across multiple RL robotics and 2D/3D navigation based environments.</li>
+        <li>Integrate the novel algorithm into the world model variants.</li>
+        <li>Analyze its effect on model accuracy, rollout quality, and policy performance.</li>
+      </ul>
+
+      <h3 class="subheading">Your Benefits</h3>
+      <p>
+        You will gain deep experience with state-of-the-art model-based RL, modern world-model architectures, and
+        large-scale experiments on GPU clusters.
+      </p>
+
+      <h3 class="subheading">Related Works / Preliminary Readings</h3>
+      <ul>
+        <li>Pau Aceituno et al. (2025). <em>Temporal horizons in forecasting: a performance-learnability trade-off</em>.</li>
+        <li>Nicklas Hansen et al. (2022). <em>Temporal Difference Learning for Model Predictive Control</em>.</li>
+      </ul>
+
+      <h3 class="subheading">Your Profile</h3>
+      <p>Proficiency in Python and PyTorch, and prior experience with at least one RL codebase.</p>
+
+      <h3 class="subheading">Supervisors</h3>
+      <ul>
+        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
+        <li>Dr. Pau Aceituno (UZH)</li>
+      </ul>
+
+      <h3 class="subheading">Starting Date + Duration</h3>
+      <p>This project is currently available as a master thesis.</p>
+    </div>
+  </details>
+
+  <details class="card project-card project-dropdown">
+    <summary class="project-summary">
+      <span class="project-title">Recursive Vision Models</span>
+    </summary>
+    <div class="project-content">
+      <h3 class="subheading">Background</h3>
+      <p>
+        Vision Transformers (ViTs) and related architectures achieve state-of-the-art performance but are often
+        computationally expensive due to quadratic attention. Linear and efficient attention variants, as well as
+        biologically inspired recurrent vision models, seek to reduce cost while retaining performance and robustness.
+        Visual RL benchmarks show that compact visual backbones can significantly impact sample efficiency and
+        generalization.
+      </p>
+
+      <h3 class="subheading">Master Thesis</h3>
+      <p>
+        You will validate a biologically inspired recurrent vision architecture on modern vision RL benchmarks. The focus
+        is on linear-attention or recurrent designs that can handle sequences of visual observations in RL environments,
+        and on understanding how architectural choices affect sample efficiency, robustness, and emergent visual reasoning.
+      </p>
+
+      <h3 class="subheading">Your Benefits</h3>
+      <p>
+        You will gain experience in efficient vision architectures, reinforcement learning, and the design of small models
+        capable of non-trivial reasoning over visual inputs.
+      </p>
+
+      <h3 class="subheading">Related Works / Preliminary Readings</h3>
+      <ul>
+        <li>Choromanski, K. et al. (2020). <em>Rethinking Attention with Performers</em>.</li>
+        <li>Han, D. et al. (2023). <em>FLatten Transformer: Vision Transformer using Focused Linear Attention</em>.</li>
+        <li>Yao, Z. et al. (2024). <em>Mobile-Friendly Linear Attention for Vision Transformers</em>.</li>
+        <li>Xu, Y. et al. (2024). <em>Improving Linear Attention in ViT with Quadratic Taylor Expansion</em>.</li>
+        <li>Tao, M. et al. (2023). <em>Evaluating Vision Transformer Methods for Deep Reinforcement Learning Control Tasks</em>.</li>
+      </ul>
+
+      <h3 class="subheading">Your Profile</h3>
+      <p>
+        Comfortable using PyTorch and some familiarity with RL libraries. Interest in biologically inspired models and
+        efficient architectures is important.
+      </p>
+
+      <h3 class="subheading">Supervisors</h3>
+      <ul>
+        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
+        <li>Prof. Valerio Mante (ETH, UZH)</li>
+      </ul>
+
+      <h3 class="subheading">Starting Date + Duration</h3>
+      <p>This project is currently available as a master thesis.</p>
+    </div>
+  </details>
+
+</main>
+</body>
+</html>
