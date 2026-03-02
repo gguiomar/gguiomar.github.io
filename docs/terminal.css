@@ -188,6 +188,30 @@ h1 {
   margin: 0 0 10px;
 }
 
+.teaching-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.teaching-item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.teaching-item .meta {
+  margin: 0;
+}
+
+.teaching-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 12px 0 10px;
+}
+
 .project-card ul {
   margin: 0 0 10px 20px;
   padding: 0;
