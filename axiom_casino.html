@@ -10,7 +10,7 @@
       margin: 0;
       width: 100%;
       height: 100%;
-      background: #000;
+      background: #0000ff;
     }
     .page-wrap {
       display: flex;
@@ -27,7 +27,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin: 0 0 28px;
-      color: #e6e6e6;
+      color: #ff0000;
     }
     .hero-video {
       display: block;
@@ -38,7 +38,7 @@
     }
     .info {
       margin-top: 28px;
-      color: #9a9a9a;
+      color: #ff0000;
       font-size: clamp(0.9rem, 2vw, 1.1rem);
       line-height: 1.6;
     }
@@ -46,17 +46,20 @@
       margin-top: 14px;
       padding: 6px 18px;
       background: transparent;
-      border: 1px solid #333;
+      border: 1px solid #660000;
       border-radius: 999px;
-      color: #9a9a9a;
+      color: #ff0000;
       font-family: inherit;
       font-size: 0.82rem;
       cursor: pointer;
       transition: border-color 0.2s, color 0.2s;
     }
+    .corner-home, a, a:visited {
+      color: #ff0000;
+    }
     .sound-btn:hover {
-      border-color: #666;
-      color: #e6e6e6;
+      border-color: #ff3333;
+      color: #ff3333;
     }
   </style>
 </head>
@@ -67,6 +70,7 @@
   <p class="info" style="margin: -18px 0 28px; font-size: 0.85rem; font-style: italic;"><a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a> &amp; <a href="index.html">Gonçalo Guiomar</a></p>
   <video class="hero-video" id="vid" src="media/axiom_casino.mp4" autoplay loop muted playsinline></video>
   <button class="sound-btn" id="soundBtn" onclick="toggleSound()">sound on</button>
+  <p class="info" style="max-width: 580px; margin-top: 28px; text-align: justify;"><em>Axiom Casino</em> is an algorithmic fiction set in a world where chance is never neutral. Through shifting rooms governed by machine logic, it explores control, ritual, and collective behavior, turning the casino into a theatrical machine for thinking about power, belief, and the systems that influence our actions.</p>
   <p class="info">Theater Piece, Showing in Porto, 16–17 April 2026 — Portugal</p>
 </div>
 <script>
