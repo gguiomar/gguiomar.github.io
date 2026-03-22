@@ -24,6 +24,7 @@ body {
     radial-gradient(1000px 450px at 95% -20%, #141414 0%, #060606 50%, #000000 100%);
   color: var(--text);
   font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", "Consolas", monospace;
+  font-size: 0.85rem;
   line-height: 1.65;
 }
 
@@ -146,7 +147,7 @@ h1 {
 .pub-title,
 .work-item h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -178,7 +179,7 @@ h1 {
 .meta {
   margin: 6px 0 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 .work-item p {
@@ -341,6 +342,10 @@ h1 {
   gap: 10px;
 }
 
+.mobile-icons {
+  display: none;
+}
+
 .icon-link {
   text-decoration: none;
   border-bottom: 0;
@@ -382,27 +387,34 @@ a:active {
 }
 
 @media (max-width: 640px) {
+  .mobile-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin: 0 0 8px;
+  }
+
+  .desktop-icons {
+    display: none !important;
+  }
+
   .name-row {
-    flex-direction: column !important;
-    align-items: flex-start !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    justify-content: space-between !important;
     gap: 8px !important;
   }
 
   .nav-header-right {
     flex-direction: row !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    gap: 14px !important;
+    align-items: baseline !important;
+    gap: 0 !important;
     margin: 0 !important;
-    width: 100%;
   }
 
   .nav-project-links-inline {
-    gap: 12px !important;
-  }
-
-  .nav-icons {
-    margin-left: auto;
+    gap: 10px !important;
+    font-size: 0.75rem;
   }
 
   .project-summary {
@@ -460,6 +472,10 @@ a:active {
   main {
     margin-top: 42px;
     padding: 0 16px;
+  }
+
+  .subtitle-compact {
+    font-size: 0.72rem;
   }
 
   .card {
