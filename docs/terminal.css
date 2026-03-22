@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
 
 :root {
   --bg: #000000;
@@ -23,7 +23,7 @@ body {
   background:
     radial-gradient(1000px 450px at 95% -20%, #141414 0%, #060606 50%, #000000 100%);
   color: var(--text);
-  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", "Consolas", monospace;
   line-height: 1.65;
 }
 
@@ -383,20 +383,26 @@ a:active {
 
 @media (max-width: 640px) {
   .name-row {
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: flex-start !important;
+    gap: 8px !important;
   }
 
   .nav-header-right {
-    flex-direction: column-reverse !important;
+    flex-direction: row !important;
     justify-content: flex-start !important;
-    align-items: flex-end !important;
-    gap: 4px !important;
-    margin: 0 0 6px !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin: 0 !important;
+    width: 100%;
   }
 
   .nav-project-links-inline {
     gap: 12px !important;
+  }
+
+  .nav-icons {
+    margin-left: auto;
   }
 
   .project-summary {
@@ -438,12 +444,6 @@ a:active {
 }
 
 @media (max-width: 640px) {
-  .name-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
   .links-bar {
     width: 100%;
     margin-bottom: 8px;
@@ -451,11 +451,6 @@ a:active {
 
   .nav-project-links {
     margin: 0;
-  }
-
-  .nav-header-right {
-    justify-content: flex-start;
-    margin: 0 0 6px;
   }
 
   .nav-right-icons {
