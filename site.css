@@ -28,8 +28,8 @@ a { color: inherit; text-decoration: none; }
 p a, li a, .bio a { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 3px; }
 p a:hover, li a:hover, .bio a:hover { text-decoration-color: currentColor; }
 
-.page { max-width: 1040px; margin: 0 auto; padding: 36px 24px 0; }
-.narrow { max-width: 680px; margin-left: auto; margin-right: auto; }
+.page { max-width: 780px; margin: 0 auto; padding: 36px 24px 0; }   /* one column: header, visuals and text share edges */
+.narrow { max-width: none; }
 
 /* ---------- Header ---------- */
 .id { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; flex-wrap: wrap; }
@@ -57,7 +57,7 @@ canvas[data-visual="attractor"]:active, canvas[data-visual="bt"]:active { cursor
 
 /* ---------- Text blocks ---------- */
 main { margin-top: 28px; }
-.intro { margin: 0 auto; max-width: 680px; color: var(--muted); }
+.intro { margin: 0; color: var(--muted); }
 .intro a { color: var(--text); }
 .block { margin-top: 40px; }
 .intro + .block { margin-top: 24px; }
