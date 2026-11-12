@@ -6,6 +6,8 @@ Production: https://gguiomar.org. The mockup is separate and is never included a
 
 Push or merge into `main`. `.github/workflows/deploy.yml` runs receiver security tests, builds the allowlisted public files, uploads an artifact, deploys to the origin, checks HTTPS, then publishes legacy redirect pages to GitHub Pages. Pull requests only build and test; they cannot use the production key.
 
+The build appends `?v=<content hash>` to every local CSS/JS reference in the published HTML (source files are untouched). Cloudflare caches static files for hours, so this is what makes style and script changes show up immediately; HTML itself is not cached.
+
 `deployment/public-files.json` is the explicit public-file list. Add new production assets here when ready to publish them. Local/untracked files, mockup, Git metadata, deployment tooling, and credentials are excluded. Only Git-tracked files are accepted. Build locally with `python3 deployment/build.py`; output is in ignored `build/`.
 
 GitHub's `production` environment permits only the `main` branch and holds `WEBSITE_DEPLOY_KEY`. The pinned server host key is in the workflow. Rotate the dedicated deployment key by replacing its server authorized key and GitHub environment secret; do not commit private keys.
