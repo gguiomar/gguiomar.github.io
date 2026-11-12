@@ -4,179 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gonçalo Guiomar</title>
-<link rel="stylesheet" href="docs/terminal.css">
+<meta name="description" content="Research Fellow at the ETH AI Center and INI, University of Zurich. Mechanistic interpretability and cognition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="canonical" href="https://gguiomar.org/">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
 </head>
 <body>
-<main>
-<div class="nav-icons mobile-icons">
-  <a class="icon-link" href="https://scholar.google.com/citations?user=WJ9kSn8AAAAJ&hl=pt-PT" aria-label="Google Scholar">
-    <img class="social-icon" src="images/scholar.png" alt="Google Scholar">
-  </a>
-  <a class="icon-link" href="https://github.com/gguiomar" aria-label="GitHub">
-    <img class="social-icon" src="images/github.png" alt="GitHub">
-  </a>
-  <a class="icon-link" href="https://www.linkedin.com/in/gon%C3%A7alo-guiomar-27a943224/" aria-label="LinkedIn">
-    <img class="social-icon" src="images/linkedin.png" alt="LinkedIn">
-  </a>
+<div class="page">
+  <header class="id">
+    <div><a class="who" href="index.html">Gonçalo Guiomar</a> <span class="role">· Research Fellow, ETH AI Center &amp; INI, University of Zurich</span></div>
+    <nav><a href="index.html" aria-current="page">Research</a><a href="artworks.html">Art</a><a href="essays/index.html">Essays</a><a href="projects.html">Projects</a><button class="theme-toggle" type="button"></button></nav>
+  </header>
+
+  <div class="fig"><canvas id="flow" data-accent="--blue" aria-hidden="true"></canvas></div>
+
+  <main class="narrow">
+    <p class="intro">I work at the intersection of mechanistic interpretability and cognition: how biological and artificial systems learn internal representations of the world through action and inference. I combine computational neuroscience, reinforcement learning and latent-state modeling to study decision-making, reasoning and adaptive behavior. Currently in the labs of <a href="https://mantelab.github.io/nccweb/">Valerio Mante</a> and <a href="https://grewelab.org/">Benjamin Grewe</a>. Previously PhD at the <a href="https://fchampalimaud.org/research/groups/paton">Champalimaud Foundation</a> with Joseph Paton. Students: see <a href="projects.html">open projects</a>.</p>
+
+    <section class="block">
+      <div class="block-head"><h2 class="lbl">Selected publications</h2><a href="https://scholar.google.com/citations?user=WJ9kSn8AAAAJ">Scholar →</a></div>
+      <ol class="bib">
+        <li data-c="violet"><span class="yr">2026</span><div><a class="t" href="https://ai.trt-bench.org/">Reasoning under uncertainty in humans and language models</a><p class="au"><b>G. Guiomar</b>, E. Torre, P. Moure, V. Shavina, M. Giulianelli, S.-C. Liu, V. Mante</p></div><span class="v">NeurIPS 2026</span></li>
+        <li data-c="green"><span class="yr">2022</span><div><a class="t" href="https://www.nature.com/articles/s41586-022-04894-9">Action suppression reveals opponent parallel control via striatal circuits</a><p class="au">B. F. Cruz, <b>G. Guiomar</b>, S. Soares, A. Motiwala, C. K. Machens, J. J. Paton</p></div><span class="v">Nature</span></li>
+        <li data-c="blue"><span class="yr">2014</span><div><a class="t" href="https://arxiv.org/pdf/1409.2022v2.pdf">Astrophysical constraints on the Bumblebee model</a><p class="au"><b>G. Guiomar</b>, J. Páramos</p></div><span class="v">Phys. Rev. D</span></li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><h2 class="lbl">Media</h2></div>
+      <ol class="bib">
+        <li data-c="violet"><span class="yr">2026</span><div><a class="t" href="https://www.srf.ch/play/tv/-/video/-?urn=urn:srf:video:c4db64a2-67cf-4bec-93bd-4a6747a077b7&amp;startTime=909">KI im Kopf: Machen uns ChatGPT und Co. dumm?</a><p class="au">SRF Einstein. Generative AI, cognitive effort and learning (German)</p></div><span class="v">Interview</span></li>
+        <li data-c="ochre"><span class="yr">2025</span><div><a class="t" href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&amp;menu=0">Surface Disorder, Les presses du réel</a><p class="au">Essays <a href="essays/index.html">The Bite and Gnosis Fracture</a></p></div><span class="v">Essays</span></li>
+        <li data-c="violet"><span class="yr">2022</span><div><a class="t" href="https://www.youtube.com/watch?v=UjW7E8itxHQ">Science Snapshot: Circuits of action and suppression</a><p class="au">On the Nature paper. <a href="https://www.fchampalimaud.org/pt-pt/news/cientistas-descobrem-como-o-cerebro-controla-o-impulso-para-agir">Portuguese article</a></p></div><span class="v">Interview</span></li>
+        <li data-c="orange"><span class="yr">2022</span><div><a class="t" href="https://www.fchampalimaud.org/pt-pt/educacao-arte-ciencia/arte-ciencia/metamersion-latent-spaces">Metamersion: Latent Spaces</a><p class="au">Champalimaud Foundation. Co-organizer and artist</p></div><span class="v">Exhibition</span></li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><h2 class="lbl">Teaching &amp; supervision</h2></div>
+      <ol class="bib compact">
+        <li data-c="green"><span class="yr">2026</span><div>Mechanistic interpretability of attention mechanism on an active probabilistic reasoning task<span class="au">MSc, Nuri Tas, University of Zurich</span></div><span class="v">Thesis</span></li>
+        <li data-c="green"><span class="yr">2026</span><div>Hippocampal-inspired adaptive horizon planning for MPC<span class="au">MSc, Keyshav Mor</span></div><span class="v">Thesis</span></li>
+        <li data-c="blue"><span class="yr">2025</span><div>Projects in Machine Learning Research<span class="au">ETH AI Center</span></div><span class="v">Course</span></li>
+        <li data-c="blue"><span class="yr">2025</span><div>Data Science Lab<span class="au">ETH Zurich</span></div><span class="v">Course</span></li>
+        <li data-c="green"><span class="yr">2023</span><div>Diffusion augmentation in latent program spaces<span class="au">MSc co-supervision, IST, Carolina Caramelo</span></div><span class="v">Thesis</span></li>
+        <li data-c="blue"><span class="yr">2022</span><div>Introduction to Calculus<span class="au">INDP PhD Program</span></div><span class="v">Course</span></li>
+        <li data-c="blue"><span class="yr">2019</span><div>Reinforcement Learning<span class="au">INDP PhD Program</span></div><span class="v">Course</span></li>
+        <li data-c="blue"><span class="yr">2018</span><div>Introduction to Fourier Analysis<span class="au">CAJAL Summer School</span></div><span class="v">Course</span></li>
+        <li data-c="blue"><span class="yr">2017</span><div>Introduction to Dynamical Systems<span class="au">INDP PhD Program</span></div><span class="v">Course</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div><a href="https://scholar.google.com/citations?user=WJ9kSn8AAAAJ">Scholar</a><a href="https://github.com/gguiomar">GitHub</a><a href="https://www.linkedin.com/in/gon%C3%A7alo-guiomar-27a943224/">LinkedIn</a></div>
+    <span>Zurich</span>
+  </footer>
 </div>
-<div class="name-row">
-  <h1>Gonçalo Guiomar</h1>
-  <div class="links top-links nav-header-right">
-    <div class="nav-project-links-inline">
-      <a href="projects.html">Projects</a>
-      <a href="artworks.html">Artworks</a>
-      <a href="essays/index.html">Essays</a>
-    </div>
-    <div class="nav-icons desktop-icons">
-      <a class="icon-link" href="https://scholar.google.com/citations?user=WJ9kSn8AAAAJ&hl=pt-PT" aria-label="Google Scholar">
-        <img class="social-icon" src="images/scholar.png" alt="Google Scholar">
-      </a>
-      <a class="icon-link" href="https://github.com/gguiomar" aria-label="GitHub">
-        <img class="social-icon" src="images/github.png" alt="GitHub">
-      </a>
-      <a class="icon-link" href="https://www.linkedin.com/in/gon%C3%A7alo-guiomar-27a943224/" aria-label="LinkedIn">
-        <img class="social-icon" src="images/linkedin.png" alt="LinkedIn">
-      </a>
-    </div>
-  </div>
-</div>
-<p class="subtitle subtitle-compact">Research Fellow, <a href="https://ai.ethz.ch/">ETH AI Center</a> & <a href="https://www.ini.uzh.ch/">INI, University of Zurich</a></p>
-<p class="subtitle subtitle-compact">Prev. PhD at <a href="https://fchampalimaud.org/champalimaud-foundation/champalimaud-centre">Champalimaud Foundation</a>, Lisbon — <a href="https://fchampalimaud.org/research/groups/paton">Joseph Paton</a> lab</p>
-
-<section class="card">
-  <h2 class="section-title">Bio</h2>
-  <p class="bio">
-    I work at the intersection of <a href="https://en.wikipedia.org/wiki/Mechanistic_interpretability">Mechanistic Interpretability</a> and Cognition.
-    I'm interested in how biological and artificial systems learn internal representations of the world through action
-    and inference. My work combines computational neuroscience, reinforcement learning, and latent-state modeling to
-    understand decision-making, reasoning, and adaptive behavior. I am currently in
-    the labs of <a href="https://mantelab.github.io/nccweb/">Valerio Mante</a> and <a href="https://grewelab.org/">Benjamin Grewe</a>. If you're interested in
-    working with me, please check the <a href="projects.html">Projects page</a>.
-  </p>
-</section>
-
-<section class="card">
-  <h2 class="section-title">Selected Publications</h2>
-  <ol class="pub-list">
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://arxiv.org/abs/2602.08693">
-            Reasoning aligns language models to human cognition
-          </a>
-          <p class="meta"><strong>Gonçalo Guiomar</strong>, Elia Torre, Pehuen Moure, Victoria Shavina, Mario Giulianelli, Shih-Chii Liu, Valerio Mante (2026)</p>
-        </div>
-        <span class="venue-badge">Preprint</span>
-      </div>
-    </li>
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://www.nature.com/articles/s41586-022-04894-9">
-            Action suppression reveals opponent parallel control via striatal circuits
-          </a>
-          <p class="meta">Bruno F. Cruz, <strong>Gonçalo Guiomar</strong>, Sofia Soares, Asma Motiwala, Christian K. Machens, Joseph J. Paton (2022)</p>
-        </div>
-        <span class="venue-badge">Nature</span>
-      </div>
-    </li>
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://arxiv.org/pdf/1409.2022v2.pdf">
-            Astrophysical Constraints on the Bumblebee Model
-          </a>
-          <p class="meta"><strong>Gonçalo Guiomar</strong>, Jorge Paramos (2014)</p>
-        </div>
-        <span class="venue-badge">Phys. Rev. D</span>
-      </div>
-    </li>
-  </ol>
-</section>
-
-<section class="card">
-  <h2 class="section-title">Selected Media</h2>
-  <ol class="pub-list">
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&menu=0">
-            Surface Disorder — Les presses du réel
-          </a>
-          <p class="meta">Contributed the essays <em><a href="essays/the-bite.html">The Bite</a></em> and <em><a href="essays/gnosis-fracture.html">Gnosis Fracture</a></em> to the <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&menu=0">publication</a> accompanying the <a href="artworks.html#surface-disorder">Surface Disorder</a> exhibition.</p>
-        </div>
-        <span class="venue-badge">Essays</span>
-      </div>
-    </li>
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://www.youtube.com/watch?v=UjW7E8itxHQ">
-            Science Snapshot: Circuits of Action and Suppression
-          </a>
-          <p class="meta">Interview section about the work done in the Cruz, Guiomar et al Nature paper. Portuguese interview page: <a href="https://www.fchampalimaud.org/pt-pt/news/cientistas-descobrem-como-o-cerebro-controla-o-impulso-para-agir">link</a>.</p>
-        </div>
-        <span class="venue-badge">Interview</span>
-      </div>
-    </li>
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://www.srf.ch/play/tv/-/video/-?urn=urn:srf:video:c4db64a2-67cf-4bec-93bd-4a6747a077b7&amp;startTime=909">
-            KI im Kopf - Machen uns ChatGPT und Co. dumm? (SRF Einstein)
-          </a>
-          <p class="meta">Interview segment on how everyday use of generative AI can affect cognitive effort, learning behavior, and related physiological responses (German).</p>
-        </div>
-        <span class="venue-badge">Interview</span>
-      </div>
-    </li>
-    <li class="pub-item">
-      <div class="pub-row">
-        <div class="pub-main">
-          <a class="pub-title" href="https://www.fchampalimaud.org/pt-pt/educacao-arte-ciencia/arte-ciencia/metamersion-latent-spaces">
-            Metamersion: Latent Spaces (Champalimaud Foundation)
-          </a>
-          <p class="meta">Contributed artistic works to the exhibition, including collaborative AI-driven pieces developed with Jonathan Saldanha and the Lunar Ring collective, and supported the organization of the event as part of the Metamersion: Latent Spaces program.</p>
-        </div>
-        <span class="venue-badge">Art / Event</span>
-      </div>
-    </li>
-  </ol>
-</section>
-
-<section class="card">
-  <h2 class="section-title">Teaching and Thesis Supervision</h2>
-  <ul class="teaching-list">
-    <li class="teaching-item">
-      <p class="meta">Master's thesis supervision - <em>Hippocampal Inspired Adaptive Horizon Planning &amp; Learning for Model Predictive Control</em> - Keyshav Mor (2026)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Master's thesis co-supervision @ Instituto Superior Tecnico - <em>Diffusion Augmentation in Latent Program Spaces as a Cognitive Model of Psychedelic Action</em> - <a href="https://www.linkedin.com/in/carolina-caramelo-0a3b77173/">Carolina Caramelo</a> (2023)</p>
-    </li>
-  </ul>
-  <hr class="teaching-divider">
-  <ul class="teaching-list">
-    <li class="teaching-item">
-      <p class="meta">AI Center Projects in Machine Learning Research FS2025 @ ETH Zurich (Spring 2025)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Data Science Lab @ ETH Zurich (Spring 2025)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Introduction to Calculus @ INDP PhD Program (Spring 2022)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Reinforcement Learning @ INDP PhD Program (Spring 2019)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Introduction to Fourier Analysis @ CAJAL Computational Summer School (Summer 2018)</p>
-    </li>
-    <li class="teaching-item">
-      <p class="meta">Introduction to Dynamical Systems @ INDP PhD Program (Spring 2017)</p>
-    </li>
-  </ul>
-</section>
-
-</main>
+<script src="flow.js"></script>
 </body>
 </html>
