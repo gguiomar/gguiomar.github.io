@@ -3,132 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artworks | Gonçalo Guiomar</title>
-<link rel="stylesheet" href="docs/terminal.css">
+<title>Art · Gonçalo Guiomar</title>
+<meta name="description" content="Installations, performances and films made with real-time machine-learning systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="canonical" href="https://gguiomar.org/artworks.html">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
 </head>
 <body>
-<main>
-  <div class="name-row">
-    <h1><a href="index.html">Gonçalo Guiomar</a> | Artworks</h1>
-    <a class="icon-link" href="https://www.instagram.com/latentvoid/" aria-label="Instagram">
-      <img class="social-icon" src="images/instagram.png" alt="Instagram">
-    </a>
-  </div>
-  <p class="subtitle">Selected projects, installations, and live performances.</p>
-  <img class="media-image hero-image" src="images/nebulae.png" alt="Neural visual still from art projects">
+<div class="page">
+  <header class="id">
+    <div><a class="who" href="index.html">Gonçalo Guiomar</a> <span class="role">· Art</span></div>
+    <nav><a href="index.html">Research</a><a href="artworks.html" aria-current="page">Art</a><a href="essays/index.html">Essays</a><a href="projects.html">Projects</a><button class="theme-toggle" type="button"></button></nav>
+  </header>
 
-  <section class="card">
-    <h2 class="section-title">Archive</h2>
-    <ul class="work-list">
-      <li class="work-item">
-        <div class="pub-row"><h3><a href="axiom_casino.html">Axiom Casino</a> <span class="tag">2026</span></h3><span class="venue-badge">Theater</span></div>
-        <p>An algorithmic fiction set in a world where chance is never neutral. Through shifting rooms governed by machine logic, it explores control, ritual, and collective behavior, turning the casino into a theatrical machine for thinking about power, belief, and the systems that influence our actions. See the <a href="axiom_casino.html">trailer</a> here.</p>
-        <p class="meta">Writing &amp; direction: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="index.html">Gonçalo Guiomar</a> · Sound design: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.instagram.com/goncalo_penas_/">Gonçalo Penas</a> · Light design: <a href="index.html">Gonçalo Guiomar</a>, <a href="https://barbarapedropaixao.com/">Bárbara Paixão</a></p>
-        <a href="axiom_casino.html"><img class="media-image" src="media/axiom_casino.gif" alt="Axiom Casino preview"></a>
-      </li>
+  <div class="fig slim"><canvas data-visual="attractor" data-system="aizawa" data-accent="--muted" data-accent2="--text" aria-hidden="true"></canvas></div>
 
-      <li class="work-item">
-        <div class="pub-row"><h3>Atavic Forest 2 <span class="tag">2026</span></h3><span class="venue-badge">Short Film</span></div>
-        <p><a href="https://atafestival.io/works/atavic-forest">ATA Festival</a>, Zurich, Switzerland.</p>
-        <p class="meta">Collaborators: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.instagram.com/goncalo_penas_/">Gonçalo Penas</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring Art Collective</a></p>
-        <img class="media-image" src="media/atavic2.avif" alt="Atavic Forest 2 still">
-      </li>
+  <main>
+    <p class="intro">Installations, performances and films made with real-time machine-learning systems: multi-agent orchestrators for light and sound, traversable generated environments, AI entities built from different explorations of real time cybernetics.</p>
 
-      <li class="work-item" id="surface-disorder">
-        <div class="pub-row"><h3><a href="https://galeriasmunicipais.pt/en/exposicoes/jonathan-uriel-saldanha/">Surface Disorder</a> <span class="tag">2025</span></h3><span class="venue-badge">Installation</span></div>
-        <p>Porto Municipal Gallery. Multi-agent AI system orchestrating light, sound, and narrative states in real time. I wrote a couple of essays featured in this <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&menu=0">book</a>: <a href="essays/the-bite.html">The Bite</a> and <a href="essays/gnosis-fracture.html">Gnosis Fracture</a>.</p>
-        <p class="meta">Concept &amp; design: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="index.html">Gonçalo Guiomar</a> · Orchestrator &amp; light: <a href="index.html">Gonçalo Guiomar</a>, <a href="https://barbarapedropaixao.com/">Bárbara Paixão</a> · Sound &amp; sculpture: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a></p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/1051501321" title="Surface Disorder video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/1051501321">Open video</a></p>
-      </li>
+    <div class="filters" role="toolbar" aria-label="Filter by medium">
+      <button class="chip" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" data-c="blue" data-filter="installation" aria-pressed="false">Installation</button>
+      <button class="chip" data-c="orange" data-filter="performance" aria-pressed="false">Performance</button>
+      <button class="chip" data-c="violet" data-filter="live" aria-pressed="false">Live A/V</button>
+      <button class="chip" data-c="green" data-filter="film" aria-pressed="false">Film</button>
+      <button class="chip" data-c="red" data-filter="theater" aria-pressed="false">Theater</button>
+    </div>
 
-      <li class="work-item">
-        <div class="pub-row"><h3><a href="https://blog.zhdk.ch/immersivearts/zangezi/">Zangezi</a> <span class="tag">2025</span></h3><span class="venue-badge">Performance</span></div>
-        <p>Immersive performance developed with Chris Salter and the Immersive Arts Space (ZHdK); contribution focused on AI video systems.</p>
-        <p class="meta">Concept &amp; direction: Chris Salter · Contribution: AI video system</p>
-        <img class="media-image" src="images/zangezi.png" alt="Zangezi still image">
-        <p class="meta"><a href="https://blog.zhdk.ch/immersivearts/zangezi/">Project page</a></p>
-      </li>
+    <div class="works">
+      <div class="work" data-medium="theater" data-c="red"><a class="im" href="axiom_casino.html"><img src="assets/art/axiom-casino.webp" alt="Axiom Casino: a performer crawling inside a tilted, light-edged glass prism" loading="lazy"></a><div class="cap"><a href="axiom_casino.html">Axiom Casino</a><span class="yr">2026</span></div><p class="where">Algorithmic fiction for the stage</p><p class="cred">Writing &amp; direction: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, Gonçalo Guiomar · Sound: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.instagram.com/goncalo_penas_/">Gonçalo Penas</a> · Light: Gonçalo Guiomar, <a href="https://barbarapedropaixao.com/">Bárbara Paixão</a></p><span class="v">Theater</span></div>
+      <div class="work" data-medium="film" data-c="green"><a class="im" href="https://atafestival.io/works/atavic-forest"><img src="media/atavic2.avif" alt="Atavic Forest 2" loading="lazy"></a><div class="cap"><a href="https://atafestival.io/works/atavic-forest">Atavic Forest 2</a><span class="yr">2026</span></div><p class="where"><a href="https://atafestival.io/works/atavic-forest">ATA Festival</a>, Zurich</p><p class="cred">With <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.instagram.com/goncalo_penas_/">Gonçalo Penas</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p><span class="v">Film</span></div>
+      <div class="work" data-medium="installation" data-c="blue"><a class="im" href="https://vimeo.com/1051501321"><img src="assets/art/surface-disorder.webp" alt="Surface Disorder: visitors around a tall screen showing a close-up of a mouth" style="object-position: 50% 36%" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/1051501321">Surface Disorder</a><span class="yr">2025</span></div><p class="where"><a href="https://galeriasmunicipais.pt/en/exposicoes/jonathan-uriel-saldanha/">Galeria Municipal do Porto</a>. Essays in the <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&amp;menu=0">book</a></p><p class="cred">Concept: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, Gonçalo Guiomar · Orchestrator &amp; light: Gonçalo Guiomar, <a href="https://barbarapedropaixao.com/">Bárbara Paixão</a> · Sound &amp; sculpture: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a></p><span class="v">Installation</span></div>
+      <div class="work" data-medium="performance" data-c="orange"><a class="im" href="https://blog.zhdk.ch/immersivearts/zangezi/"><img src="images/zangezi.png" alt="Zangezi" loading="lazy"></a><div class="cap"><a href="https://blog.zhdk.ch/immersivearts/zangezi/">Zangezi</a><span class="yr">2025</span></div><p class="where"><a href="https://blog.zhdk.ch/immersivearts/zangezi/">Immersive Arts Space, ZHdK</a></p><p class="cred">Concept &amp; direction: Chris Salter · AI video system: Gonçalo Guiomar</p><span class="v">Performance</span></div>
+      <div class="work" data-medium="installation" data-c="blue"><a class="im" href="https://www.youtube.com/watch?v=M9ubhsSeaNw"><img src="assets/art/jezabel.webp" alt="Jezabel: pink fabric suspended from cables between stage lights, a second sheet pooled on the floor" style="object-position: 50% 55%" loading="lazy"></a><div class="cap"><a href="https://www.youtube.com/watch?v=M9ubhsSeaNw">Jezabel</a><span class="yr">2025</span></div><p class="where">Lisbon Fashion Week</p><p class="cred">With <a href="https://joaopedrofonseca.com/">João Pedro Fonseca</a>, <a href="https://carincur.com/">Carincur</a></p><span class="v">Installation</span></div>
+      <div class="work" data-medium="live" data-c="violet"><a class="im" href="https://vimeo.com/1038190037"><img src="assets/art/hhy-macumbas.jpg" alt="HHY &amp; The Macumbas + Lunar Ring: pale painted hands reaching across a red sculpted surface" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/1038190037">HHY &amp; The Macumbas + Lunar Ring</a><span class="yr">2025</span></div><p class="where">Surface Disorder, Galeria Municipal do Porto</p><p class="cred"><a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> with <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p><span class="v">Live A/V</span></div>
+      <div class="work" data-medium="live" data-c="violet"><a class="im" href="https://vimeo.com/1038183757"><img src="assets/art/hhy-vila-do-conde.jpg" alt="HHY &amp; The Macumbas + Lunar Ring, Vila do Conde: figures in red cloth lying on a gridded stage, seen from above" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/1038183757">HHY &amp; The Macumbas + Lunar Ring</a><span class="yr">2024</span></div><p class="where">Teatro Municipal Vila do Conde, Curtas Film Festival</p><p class="cred"><a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> with <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p><span class="v">Live A/V</span></div>
+      <div class="work" data-medium="film" data-c="green"><a class="im" href="https://vimeo.com/799494087"><img src="assets/art/latent-space.jpg" alt="Latent Space: still of the lead actor's face, eyes fully dark, in a bare winter forest" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/799494087">Latent Space</a><span class="yr">2024</span></div><p class="where">Short film</p><p class="cred">Director: <a href="https://www.instagram.com/madebymots/">Octavian Moț</a> · Writers: Daniela Nedovescu, Octavian Moț · Co-writers: <a href="https://mainenlab.org/">Zachary Mainen</a>, <a href="https://philpeople.org/profiles/razvan-sandru">Răzvan Șandru</a>, Gonçalo Guiomar</p><span class="v">Film</span></div>
+      <div class="work" data-medium="live" data-c="violet"><a class="im" href="https://vimeo.com/1038199070"><img src="assets/art/atavic-forest-live.webp" alt="Atavic Forest, live: a radiant burst of generated light and filaments" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/1038199070">Atavic Forest, live</a><span class="yr">2023</span></div><p class="where">Mucho Flow Festival. 8-channel projection</p><p class="cred">With <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p><span class="v">Live A/V</span></div>
+      <div class="work" data-medium="installation" data-c="blue"><a class="im" href="https://vimeo.com/802769440"><img src="assets/art/atavic-forest.webp" alt="Atavic Forest: a generated forest of tangled dark and red branches in teal mist" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/802769440">Atavic Forest</a><span class="yr">2022</span></div><p class="where"><a href="https://www.fchampalimaud.org/pt-pt/educacao-arte-ciencia/arte-ciencia/metamersion-latent-spaces">Metamersion: Latent Spaces</a>, Champalimaud Foundation</p><p class="cred">With <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p><span class="v">Installation</span></div>
+      <div class="work" data-medium="installation" data-c="blue"><a class="im" href="https://vimeo.com/751253813"><img src="assets/art/polylith.jpg" alt="Polylith: a generated ocean under a pink and amber sky" loading="lazy"></a><div class="cap"><a href="https://vimeo.com/751253813">Polylith</a><span class="yr">2021</span></div><p class="where"><a href="https://www.fchampalimaud.org/pt-pt/education-art-science/art-science/metamersion">Metamersion</a>, Champalimaud Foundation</p><p class="cred">With <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://mainenlab.org/">Zachary Mainen</a></p><span class="v">Installation</span></div>
+    </div>
 
-      <li class="work-item">
-        <div class="pub-row"><h3>Jezabel <span class="tag">2025</span></h3><span class="venue-badge">Installation</span></div>
-        <p>Lisbon Fashion Week. AI-driven digital entity built from interviews and archives from fashion designers.</p>
-        <p class="meta">Collaborators: <a href="https://joaopedrofonseca.com/">João Pedro Fonseca</a>, <a href="https://carincur.com/">Carincur</a></p>
-        <div class="media-frame">
-          <iframe src="https://www.youtube.com/embed/M9ubhsSeaNw?si=aJfIw10PI6_NOGvn" title="Jezabel video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://www.youtube.com/embed/M9ubhsSeaNw?si=aJfIw10PI6_NOGvn">Open video</a></p>
-      </li>
+    <div class="narrow">
+      <section class="block">
+        <div class="block-head"><h2 class="lbl">Exhibitions &amp; performances</h2></div>
+        <ol class="bib">
+          <li data-c="green"><span class="yr">2026</span><div><a class="t" href="https://atafestival.io/works/atavic-forest">Atavic Forest 2</a><p class="au"><a href="https://atafestival.io/works/atavic-forest">ATA Festival</a>, Zurich</p></div><span class="v">Screening</span></li>
+          <li data-c="blue"><span class="yr">2025</span><div><a class="t" href="https://vimeo.com/1051501321">Surface Disorder</a><p class="au"><a href="https://galeriasmunicipais.pt/en/exposicoes/jonathan-uriel-saldanha/">Galeria Municipal do Porto</a>, with J. U. Saldanha</p></div><span class="v">Exhibition</span></li>
+          <li data-c="orange"><span class="yr">2025</span><div><a class="t" href="https://blog.zhdk.ch/immersivearts/zangezi/">Zangezi</a><p class="au">Immersive Arts Space, ZHdK, Zurich. Concept &amp; direction: Chris Salter</p></div><span class="v">Performance</span></li>
+          <li data-c="blue"><span class="yr">2025</span><div><a class="t" href="https://www.youtube.com/watch?v=M9ubhsSeaNw">Jezabel</a><p class="au">Lisbon Fashion Week</p></div><span class="v">Installation</span></li>
+          <li data-c="violet"><span class="yr">2024</span><div><a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> + <a href="https://www.lunar-ring.ai/">Lunar Ring</a><p class="au">Teatro Municipal Vila do Conde, Curtas Film Festival</p></div><span class="v">Concert</span></li>
+          <li data-c="violet"><span class="yr">2023</span><div>Atavic Forest, live<p class="au">Mucho Flow Festival. 8-channel projection, live-generated visuals. With <a href="https://www.lunar-ring.ai/">Lunar Ring</a></p></div><span class="v">Concert</span></li>
+          <li data-c="blue"><span class="yr">2022</span><div><a class="t" href="https://www.fchampalimaud.org/pt-pt/educacao-arte-ciencia/arte-ciencia/metamersion-latent-spaces">Metamersion: Latent Spaces</a><p class="au">Champalimaud Foundation, Lisbon. Co-organizer and artist</p></div><span class="v">Exhibition</span></li>
+          <li data-c="blue"><span class="yr">2021</span><div><a class="t" href="https://www.fchampalimaud.org/pt-pt/education-art-science/art-science/metamersion">Metamersion</a><p class="au">Champalimaud Foundation, Lisbon</p></div><span class="v">Exhibition</span></li>
+        </ol>
+      </section>
 
-      <li class="work-item">
-        <div class="pub-row"><h3><a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> + Lunar Ring <span class="tag">2025</span></h3><span class="venue-badge">Live A/V</span></div>
-        <p>Live audiovisual concert at Surface Disorder, Galeria Municipal do Porto.</p>
-        <p class="meta">Performance: Live concert with <a href="https://www.lunar-ring.ai/">Lunar Ring</a> collective</p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/1038190037" title="HHY and The Macumbas plus Lunar Ring 2025 video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/1038190037">Open video</a></p>
-      </li>
+      <section class="block">
+        <div class="block-head"><h2 class="lbl">Texts</h2><a href="essays/index.html">Essays →</a></div>
+        <ol class="bib">
+          <li data-c="ochre"><span class="yr">2025</span><div><a class="t" href="essays/the-bite.html">The Bite</a><p class="au">With J. U. Saldanha. In <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&amp;menu=0"><em>Surface Disorder</em>, Les presses du réel</a></p></div><span class="v">Essay</span></li>
+          <li data-c="ochre"><span class="yr">2025</span><div><a class="t" href="essays/gnosis-fracture.html">Gnosis Fracture</a><p class="au">With J. U. Saldanha. In <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=12077&amp;menu=0"><em>Surface Disorder</em>, Les presses du réel</a></p></div><span class="v">Essay</span></li>
+        </ol>
+      </section>
 
-      <li class="work-item">
-        <div class="pub-row"><h3><a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> + Lunar Ring <span class="tag">2024</span></h3><span class="venue-badge">Live A/V</span></div>
-        <p>Live performance at Teatro Municipal Vila do Conde / Curtas Film Festival.</p>
-        <p class="meta">Performance: <a href="https://www.instagram.com/hhy_and_the_macumbas/">HHY &amp; The Macumbas</a> + <a href="https://www.lunar-ring.ai/">Lunar Ring</a> collective</p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/1038183757" title="HHY and The Macumbas plus Lunar Ring 2024 video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/1038183757">Open video</a></p>
-      </li>
+      <section class="block">
+        <div class="block-head"><h2 class="lbl">Collaborators</h2></div>
+        <ul class="people">
+          <li><a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a></li>
+          <li><a href="https://www.lunar-ring.ai/">Lunar Ring</a></li>
+          <li><a href="https://barbarapedropaixao.com/">Bárbara Paixão</a></li>
+          <li><a href="https://www.instagram.com/goncalo_penas_/">Gonçalo Penas</a></li>
+          <li>Chris Salter</li>
+          <li><a href="https://joaopedrofonseca.com/">João Pedro Fonseca</a></li>
+          <li><a href="https://carincur.com/">Carincur</a></li>
+          <li><a href="https://www.instagram.com/madebymots/">Octavian Moț</a></li>
+          <li><a href="https://www.andregoncalves.info/">André Gonçalves</a></li>
+          <li><a href="https://mainenlab.org/">Zachary Mainen</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
 
-      <li class="work-item">
-        <div class="pub-row"><h3>Latent Space <span class="tag">2024</span></h3><span class="venue-badge">Short Film</span></div>
-        <p>What will you hold on to when dreams become inseparable from reality?</p>
-        <p class="meta">Director: <a href="https://www.instagram.com/madebymots/">Octavian Moț</a> · Writers: <a href="https://www.instagram.com/madebymots/">Daniela Nedovescu</a>, <a href="https://www.instagram.com/madebymots/">Octavian Moț</a> · Co-writers: <a href="https://mainenlab.org/">Zachary Mainen</a>, <a href="https://philpeople.org/profiles/razvan-sandru">Răzvan Șandru</a>, <a href="index.html">Gonçalo Guiomar</a></p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/799494087" title="Latent Space short film" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://vimeo.com/799494087">Open video</a></p>
-      </li>
-
-      <li class="work-item">
-        <div class="pub-row"><h3>Atavic Forest - Live Concert <span class="tag">2023</span></h3><span class="venue-badge">Live A/V</span></div>
-        <p>Mucho Flow Festival. 8-channel immersive projection and live-generated visuals.</p>
-        <p class="meta">Collaborators: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring Art Collective</a></p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/1038199070" title="Atavic Forest live concert video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/1038199070">Open video</a></p>
-      </li>
-
-      <li class="work-item">
-        <div class="pub-row"><h3>Atavic Forest <span class="tag">2022</span></h3><span class="venue-badge">Installation</span></div>
-        <p><a href="https://www.fchampalimaud.org/pt-pt/educacao-arte-ciencia/arte-ciencia/metamersion-latent-spaces">Latent Spaces</a> at Champalimaud Foundation. Real-time traversable AI-generated environment.</p>
-        <p class="meta">Collaborators: <a href="https://www.jonathanuliel.com/pt">Jonathan Uliel Saldanha</a>, <a href="https://www.lunar-ring.ai/">Lunar Ring Art Collective</a></p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/802769440" title="Atavic Forest installation video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/802769440">Open video</a></p>
-      </li>
-
-      <li class="work-item">
-        <div class="pub-row"><h3>Polylith <span class="tag">2021</span></h3><span class="venue-badge">Installation</span></div>
-        <p><a href="https://www.fchampalimaud.org/pt-pt/education-art-science/art-science/metamersion">Metamersion</a> at Champalimaud Foundation. Interactive triptych for spatial sound and responsive visuals.</p>
-        <p class="meta">Collaborators: <a href="https://www.andregoncalves.info/">André Gonçalves</a>, <a href="https://mainenlab.org/">Zach Mainen</a></p>
-        <div class="media-frame">
-          <iframe src="https://player.vimeo.com/video/751253813" title="Polylith video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="meta"><a href="https://player.vimeo.com/video/751253813">Open video</a></p>
-      </li>
-    </ul>
-  </section>
-
-  <p class="footer">
-    <a href="index.html">&lt;- back to home</a>
-    <span class="separator">|</span>
-    <a href="diagram/diagram.html">ATAVIC framework diagram</a>
-  </p>
-</main>
+  <footer class="foot">
+    <div><a href="https://www.instagram.com/latentvoid/">Instagram</a></div>
+    <span>Zurich</span>
+  </footer>
+</div>
+<script src="attractor.js"></script>
 </body>
 </html>

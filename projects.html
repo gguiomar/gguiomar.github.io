@@ -3,282 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects | Gonçalo Guiomar</title>
-<link rel="stylesheet" href="docs/terminal.css">
+<title>Projects · Gonçalo Guiomar</title>
+<meta name="description" content="Open master's thesis projects in mechanistic interpretability, cognition, reinforcement learning and efficient vision models.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="canonical" href="https://gguiomar.org/projects.html">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
 </head>
 <body>
-<main>
-  <h1><a href="index.html">Gonçalo Guiomar</a> | Projects</h1>
-  <p class="subtitle">Open master thesis opportunities.</p>
+<div class="page">
+  <header class="id">
+    <div><a class="who" href="index.html">Gonçalo Guiomar</a> <span class="role">· Projects</span></div>
+    <nav><a href="index.html">Research</a><a href="artworks.html">Art</a><a href="essays/index.html">Essays</a><a href="projects.html" aria-current="page">Projects</a><button class="theme-toggle" type="button"></button></nav>
+  </header>
 
-  <section class="card project-card project-with-preview">
-    <h2 class="project-title">Can you beat a language model?</h2>
-    <div class="media-frame project-top-embed">
-      <iframe src="https://ai.trt-bench.org/introduction" title="Can you beat a language model? task preview" frameborder="0" allowfullscreen loading="lazy"></iframe>
-    </div>
-    <p class="meta project-embed-note"><a href="https://ai.trt-bench.org/introduction">Try it out here</a></p>
+  <div class="fig slim"><canvas data-visual="attractor" data-system="thomas" data-accent="--green" data-accent2="--blue" aria-hidden="true"></canvas></div>
 
-    <details class="project-dropdown project-preview-details">
-      <summary class="project-summary">
-        <span class="project-toggle-label">Project details</span>
-      </summary>
-      <div class="project-content">
-        <h3 class="subheading">Background</h3>
-        <p>
-          Current LLMs are able to solve incredibly complex tasks, but these are very hard to interpret. Our goal is to
-          develop a suite of tasks that are minimalist but complex enough to extract complex behavior dynamics and latent
-          cognitive computations.
-        </p>
+  <main>
+    <p class="intro">Open master's thesis projects at ETH Zurich and the University of Zurich, at the intersection of mechanistic interpretability, cognition, reinforcement learning and efficient vision models.</p>
 
-        <h3 class="subheading">Master Thesis</h3>
-        <p>
-          You will help design and refine minimal probabilistic-reasoning tasks, run evaluations with humans and language
-          models, and build a reproducible analysis workflow to compare behavior across agents.
-        </p>
+    <section class="block projects">
+      <details class="proj" data-c="violet">
+        <summary>
+          <span class="n">01</span>
+          <h3>Understanding reasoning dynamics in Large Language Models</h3>
+          <span class="plus">+</span>
+          <span class="tags"><span class="v" data-c="violet">Cognition</span><span class="v" data-c="orange">Interpretability</span><span class="v" data-c="blue">LLMs</span></span>
+        </summary>
+        <div class="body">
+          <div class="embed"><iframe src="https://ai.trt-bench.org/introduction" title="Can you beat a language model? task preview" loading="lazy"></iframe></div>
+          <p class="figcap embed-cap">Can you beat a language model? <a href="https://ai.trt-bench.org/introduction">Try the task yourself.</a></p>
+          <dl>
+            <dt>Background</dt>
+            <dd><p>Current LLMs solve remarkably complex tasks, but how they do it is very hard to interpret. Minimal, psychophysics-inspired probabilistic-reasoning tasks let us compare humans and language models on exactly the same problems, and act as fine-grained probes of the latent computations behind reasoning (Guiomar &amp; Torre et al., 2026). Mechanistic interpretability, however, still lacks reliable ways to connect this kind of time-extended behavior to the internal representations and circuits that generate it.</p></dd>
+            <dt>Thesis</dt>
+            <dd><p>Using our task suite, you will perform mechanistic interpretability on reasoning language models. You will record activations and attention patterns while models solve the tasks, identify the circuits that encode latent cognitive variables such as belief, uncertainty and memory, and test causally, with activation patching and ablations, how these circuits drive behavior, comparing the models against human data.</p></dd>
+            <dt>Main points</dt>
+            <dd><ul><li>Running open reasoning models on minimal probabilistic-reasoning tasks and comparing their behavior with humans.</li><li>Finding and causally validating the circuits behind belief and uncertainty updates.</li><li>Formalizing mathematically how reasoning traces implement latent-state inference.</li></ul></dd>
+            <dt>You'll gain</dt>
+            <dd><p>Modern interpretability and analysis workflows, large-scale activation datasets, and LLM inference and evaluation pipelines on HPC, at the interface of cognitive science, neuroscience and the mechanistic auditing of reasoning models.</p></dd>
+            <dt>Profile</dt>
+            <dd><p>Strong Python and PyTorch skills; familiarity with LLMs; interest in interpretability and cognitive science.</p></dd>
+            <dt>Reading</dt>
+            <dd><ul><li><a href="https://ai.trt-bench.org/">Guiomar &amp; Torre et al. (2026). <em>Reasoning under uncertainty in humans and language models</em>.</a></li><li>Kriegeskorte &amp; Kievit (2013). <em>Representational geometry: integrating cognition, computation, and the brain</em>.</li><li>Conmy et al. (2023). <em>Towards Automated Circuit Discovery for Mechanistic Interpretability</em>.</li><li>Jo et al. (2025). <em>Causal Path Tracing in Transformers</em>.</li></ul></dd>
+            <dt>Supervisors</dt>
+            <dd><p>Dr. Gonçalo Guiomar, Elia Torre, Prof. Valerio Mante (ETH, UZH)</p></dd>
+          </dl>
+        </div>
+      </details>
 
-        <h3 class="subheading">Your Benefits</h3>
-        <p>
-          You will gain hands-on experience in cognitive task design, human and LLM behavioral evaluation, and
-          data-driven analysis of latent reasoning strategies.
-        </p>
+      <details class="proj" data-c="orange">
+        <summary>
+          <span class="n">02</span>
+          <h3>Symbolic model discovery using bifurcation theory</h3>
+          <span class="plus">+</span>
+          <span class="tags"><span class="v" data-c="orange">Dynamical systems</span><span class="v" data-c="green">RNNs</span><span class="v" data-c="violet">Interpretability</span></span>
+        </summary>
+        <div class="body">
+          <figure class="asset"><canvas data-visual="bt" aria-label="Animated Bogdanov–Takens surface of fixed points with a noisy state riding on it"></canvas></figure>
+          <dl>
+            <dt>Background</dt>
+            <dd><p>Recurrent networks trained on simple stochastic tasks develop rich internal dynamics that are hard to read out from their parameters. In <a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025)</a>, RNNs driven only by noise learn to emulate Hidden Markov Models: slow populations integrate the noise and a few near-threshold "kick" neurons trigger switches between states along a closed loop. Our follow-up work shows that these high-dimensional stochastic dynamics reduce to low-dimensional <em>stochastic normal forms</em> from bifurcation theory, the cusp and its unfoldings, so that a network of hundreds of neurons is described by a handful of interpretable equations. Following training checkpoint by checkpoint, bistability emerges through generic fold (saddle-node) bifurcations.</p></dd>
+            <dt>Thesis</dt>
+            <dd><p>You will build a pipeline for symbolic model discovery: identify the slow coordinates of trained networks, search over families of candidate stochastic differential equations constrained by normal-form theory, and validate the resulting models against the network's state densities, switching statistics and responses to perturbations.</p></dd>
+            <dt>Directions</dt>
+            <dd><ul><li>Automating normal-form identification with sparse or symbolic regression and principled model selection.</li><li>Going beyond two states: multi-state, cyclic and fully connected HMMs, where higher-codimension normal forms are expected.</li><li>Characterizing the bifurcations networks cross during learning, and how architecture and regularization shape them.</li><li>Testing noise as a bifurcation parameter in circuits with broken symmetries.</li></ul></dd>
+            <dt>You'll gain</dt>
+            <dd><p>A working knowledge of dynamical systems and bifurcation theory, stochastic differential equations, and mechanistic interpretability of recurrent networks.</p></dd>
+            <dt>Profile</dt>
+            <dd><p>Strong Python skills and experience training recurrent neural networks; a background in dynamical systems, physics or applied mathematics is a plus.</p></dd>
+            <dt>Reading</dt>
+            <dd><ul><li><a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025). <em>Mechanistic Interpretability of RNNs emulating Hidden Markov Models</em>.</a></li><li>Kuznetsov (2004). <em>Elements of Applied Bifurcation Theory</em>.</li><li>Muratov, Vanden-Eijnden &amp; E (2005). <em>Self-induced stochastic resonance in excitable systems</em>.</li></ul></dd>
+            <dt>Supervisors</dt>
+            <dd><p>Elia Torre, Dr. Gonçalo Guiomar, Prof. Valerio Mante</p></dd>
+          </dl>
+        </div>
+      </details>
 
-        <h3 class="subheading">Related Work</h3>
-        <p>
-          <a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em>.</a>
-        </p>
-        <p>
-          Are you better than contemporary LLMs at a simple task? <a href="https://ai.trt-bench.org/introduction">Try it yourself!</a>
-        </p>
+      <details class="proj" data-c="red">
+        <summary>
+          <span class="n">03</span>
+          <h3>Online Reinforcement Learning</h3>
+          <span class="plus">+</span>
+          <span class="tags"><span class="v" data-c="red">RL</span><span class="v" data-c="orange">World models</span><span class="v" data-c="blue">Distributed computing</span></span>
+        </summary>
+        <div class="body">
+          <figure class="asset"><video src="assets/projects/maze.mp4" poster="assets/projects/maze.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption>Planning with jumpy subgoals: the agent proposes a few long jumps ahead, commits, and replans, here in the layout of the Ant Hardest Maze.</figcaption></figure>
+          <dl>
+            <dt>Background</dt>
+            <dd><p>World models let agents plan by imagining trajectories instead of interacting purely online, improving sample efficiency. Most planners roll their model out one step at a time, so errors compound and long horizons become expensive. <em>Jumpy</em> world models instead predict where a policy will end up over a random, geometrically distributed horizon, so a planner can compose a few subgoals that each cover many steps. In our ongoing work on online policy composition, the policy, the jumpy model and the planner are all learned together from scratch during interaction, and planning over policy occupancies improves goal-conditioned agents on long-horizon navigation and manipulation tasks.</p></dd>
+            <dt>Thesis</dt>
+            <dd><p>You will develop and evaluate online model-based RL with jumpy world models, combining algorithmic work with large-scale experiments across GPUs and nodes.</p></dd>
+            <dt>Directions</dt>
+            <dd><ul><li>Scaling the number of composed subgoals during online training at matched compute.</li><li>Distributed online RL in JAX: parallel environments, planner sampling across GPUs and nodes, and actor–learner separation on the cluster.</li><li>Learning when to replan: adaptive commitment and planning horizons.</li><li>Comparing jumpy and one-step world models (e.g. TD-MPC2) at equal planning budget.</li></ul></dd>
+            <dt>You'll gain</dt>
+            <dd><p>Deep experience with model-based and goal-conditioned RL, modern world-model architectures, JAX, and large-scale experiments on GPU clusters.</p></dd>
+            <dt>Profile</dt>
+            <dd><p>Proficiency in Python and JAX or PyTorch, and prior experience with at least one RL codebase.</p></dd>
+            <dt>Reading</dt>
+            <dd><ul><li>Thakoor et al. (2022). <em>Generalised Policy Improvement with Geometric Policy Composition</em>.</li><li>Janner, Mordatch &amp; Levine (2020). <em>Gamma-Models: Generative Temporal Difference Learning for Infinite-Horizon Prediction</em>.</li><li>Hansen, Su &amp; Wang (2024). <em>TD-MPC2: Scalable, Robust World Models for Continuous Control</em>.</li><li>Aceituno et al. (2025). <em>Temporal horizons in forecasting: a performance-learnability trade-off</em>.</li></ul></dd>
+            <dt>Supervisors</dt>
+            <dd><p>Dr. Gonçalo Guiomar (ETH, UZH), Dr. Pau Aceituno (UZH)</p></dd>
+          </dl>
+        </div>
+      </details>
 
-        <h3 class="subheading">Main Points</h3>
-        <ul>
-          <li>Defining novel tasks for probabilistic reasoning.</li>
-          <li>Obtaining behavioral data from humans and language models, and analyzing the results.</li>
-          <li>Python proficiency is required.</li>
-        </ul>
+      <details class="proj" data-c="green">
+        <summary>
+          <span class="n">04</span>
+          <h3>Recursive Vision Models</h3>
+          <span class="plus">+</span>
+          <span class="tags"><span class="v" data-c="green">Vision</span><span class="v" data-c="red">RL</span></span>
+        </summary>
+        <div class="body">
+          <dl>
+            <dt>Background</dt>
+            <dd><p>Vision Transformers (ViTs) and related architectures achieve state-of-the-art performance but are often computationally expensive due to quadratic attention. Linear and efficient attention variants, as well as biologically inspired recurrent vision models, seek to reduce cost while retaining performance and robustness. Visual RL benchmarks show that compact visual backbones can significantly impact sample efficiency and generalization.</p></dd>
+            <dt>Thesis</dt>
+            <dd><p>You will validate a biologically inspired recurrent vision architecture on modern vision RL benchmarks. The focus is on linear-attention or recurrent designs that can handle sequences of visual observations in RL environments, and on understanding how architectural choices affect sample efficiency, robustness, and emergent visual reasoning.</p></dd>
+            <dt>You'll gain</dt>
+            <dd><p>Experience in efficient vision architectures, reinforcement learning, and the design of small models capable of non-trivial reasoning over visual inputs.</p></dd>
+            <dt>Profile</dt>
+            <dd><p>Comfortable using PyTorch and some familiarity with RL libraries. Interest in biologically inspired models and efficient architectures is important.</p></dd>
+            <dt>Reading</dt>
+            <dd><ul><li>Choromanski et al. (2020). <em>Rethinking Attention with Performers</em>.</li><li>Han et al. (2023). <em>FLatten Transformer: Vision Transformer using Focused Linear Attention</em>.</li><li>Yao et al. (2024). <em>Mobile-Friendly Linear Attention for Vision Transformers</em>.</li><li>Xu et al. (2024). <em>Improving Linear Attention in ViT with Quadratic Taylor Expansion</em>.</li><li>Tao et al. (2023). <em>Evaluating Vision Transformer Methods for Deep Reinforcement Learning Control Tasks</em>.</li></ul></dd>
+            <dt>Supervisors</dt>
+            <dd><p>Dr. Gonçalo Guiomar, Prof. Valerio Mante (ETH, UZH)</p></dd>
+          </dl>
+        </div>
+      </details>
 
-        <h3 class="subheading">Starting Date + Duration</h3>
-        <p>This project is currently available as a master thesis.</p>
-      </div>
-    </details>
-  </section>
+      <details class="proj" data-c="blue">
+        <summary>
+          <span class="n">05</span>
+          <h3>Real-time scene understanding</h3>
+          <span class="plus">+</span>
+          <span class="tags"><span class="v" data-c="green">Vision</span><span class="v" data-c="blue">3D pose</span><span class="v" data-c="ochre">Edge computing</span></span>
+        </summary>
+        <div class="body">
+          <figure class="asset"><video src="assets/projects/skeletons.mp4" poster="assets/projects/skeletons.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption>Five people reconstructed and tracked in 3D, in real time, from twelve synchronized cameras.</figcaption></figure>
+          <dl>
+            <dt>Background</dt>
+            <dd><p>Markerless 3D motion capture of several people at once usually needs a dedicated studio or offline processing. PCAT (Probabilistic Cross-View Assignment by Triangulation) reconstructs and tracks the 3D poses of multiple people in real time from a ring of synchronized, calibrated RGB cameras. A lightweight 2D pose detector runs on every view, PCAT probabilistically assigns detections across views by sampling and triangulating 3D pose proposals, and a causal tracker keeps identities consistent over time. The whole pipeline is written in JAX and turns twelve camera views into tracked 3D skeletons at close to the cameras' frame rate on a single GPU.</p></dd>
+            <dt>Thesis</dt>
+            <dd><p>You will take the system further along one of two axes: from a single GPU to a distributed, real-time sensing network, or from tracked skeletons to an understanding of what is happening in the scene.</p></dd>
+            <dt>Directions</dt>
+            <dd><ul><li>Distributed edge inference on a cluster of embedded boards: 2D inference on each camera node, compact keypoints streamed to a fusion node; latency, synchronization and bandwidth.</li><li>Low-latency causal filtering (Kalman, fixed-lag smoothing) for smooth real-time tracking.</li><li>Accuracy benchmarks on public multi-view datasets, and online self-calibration of the camera network.</li><li>From skeletons to behavior: recognizing actions and interactions from tracked 3D poses.</li></ul></dd>
+            <dt>You'll gain</dt>
+            <dd><p>Multi-view geometry and 3D pose estimation, real-time machine-learning systems in JAX, and deployment on embedded hardware.</p></dd>
+            <dt>Profile</dt>
+            <dd><p>Strong Python; background in computer vision or robotics; experience with JAX or PyTorch; interest in real-time systems.</p></dd>
+            <dt>Reading</dt>
+            <dd><ul><li>Hartley &amp; Zisserman (2004). <em>Multiple View Geometry in Computer Vision</em>.</li><li>Kalman (1960). <em>A New Approach to Linear Filtering and Prediction Problems</em>.</li><li>Rauch, Tung &amp; Striebel (1965). <em>Maximum likelihood estimates of linear dynamic systems</em>.</li></ul></dd>
+            <dt>Supervisors</dt>
+            <dd><p>Dr. Gonçalo Guiomar (ETH, UZH)</p></dd>
+          </dl>
+        </div>
+      </details>
+    </section>
+  </main>
 
-  <details class="card project-card project-dropdown">
-    <summary class="project-summary">
-      <span class="project-title">Continuous behavior clustering using Recurrent Neural Networks</span>
-    </summary>
-    <div class="project-content">
-      <h3 class="subheading">Background</h3>
-      <p>
-        Current methods for behavior clustering often rely on ad hoc discrete assumptions about underlying latent
-        states. Recurrent Neural Networks can recover highly detailed clusters without enforcing those assumptions, as
-        shown in <a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025)</a>. Previous work on fly mating behavior
-        suggests discrete behavioral clusters, including <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7819718/">Calhoun et al. (2021)</a>;
-        this project aims to go deeper and characterize dynamics that may emerge when discreteness is not imposed a priori.
-      </p>
-
-      <h3 class="subheading">Master Thesis</h3>
-      <p>
-        You will design and implement an RNN-based pipeline for continuous behavior clustering, train models on
-        behavioral datasets, and evaluate how latent representations capture temporal structure beyond standard discrete
-        clustering approaches.
-      </p>
-
-      <h3 class="subheading">Your Benefits</h3>
-      <p>
-        You will gain hands-on experience with sequence modeling, unsupervised representation learning for behavior, and
-        quantitative analysis of latent dynamics in biological datasets.
-      </p>
-
-      <h3 class="subheading">Related Works / Preliminary Readings</h3>
-      <ul>
-        <li><a href="https://arxiv.org/abs/2510.25674">Torre et al. (2025). <em>Mechanistic Interpretability of RNNs emulating Hidden Markov Models</em>.</a></li>
-        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7819718/">Calhoun et al. (2021). <em>Unsupervised identification of the internal states that shape natural behavior</em>.</a></li>
-      </ul>
-
-      <h3 class="subheading">Main Points</h3>
-      <ul>
-        <li>Defining novel analysis tasks for continuous behavior clustering.</li>
-        <li>Obtaining and analyzing behavior data from relevant biological datasets.</li>
-        <li>Python proficiency and experience training RNNs are required.</li>
-      </ul>
-
-      <h3 class="subheading">Your Profile</h3>
-      <p>Strong Python skills and practical experience with training recurrent neural networks.</p>
-
-      <h3 class="subheading">Starting Date + Duration</h3>
-      <p>This project is currently available as a master thesis.</p>
-    </div>
-  </details>
-
-  <details class="card project-card project-dropdown">
-    <summary class="project-summary">
-      <span class="project-title">Understanding reasoning dynamics in Large Language Models</span>
-    </summary>
-    <div class="project-content">
-      <h3 class="subheading">Background</h3>
-      <p>
-        LLMs exhibit behavioral patterns and internal representations that partially align with human cognition and neural
-        activity. Psychophysics-inspired tasks provide fine-grained probes that allow us to understand their behavior at
-        a mechanistic level (Guiomar &amp; Torre et al., 2026). Mechanistic interpretability, however, still lacks reliable
-        ways to connect nuanced, time-extended model behavior to the internal representations and circuits that generate it.
-      </p>
-      <p>
-        If a model can condition its behavior on who is watching or what will be rewarded, the only reliable and relevant
-        mechanism is the underlying latent, time-extended computation which is not captured by current methods. Recovering
-        these latent computations through activation/attention dynamics provides a principled route to mechanistically
-        auditing strategic behavior, including evaluation-dependent or scheming-like failure modes.
-      </p>
-
-      <h3 class="subheading">Master Thesis</h3>
-      <p>
-        You will acquire and analyze a large dataset of activations and attention patterns from small-to-mid-scale LLMs
-        evaluated on human psychophysics-like tasks. The goal is to identify internal mechanisms that encode key cognitive
-        variables (belief, uncertainty, memory amongst others), and to link these mechanisms to behavior in a causal,
-        testable way.
-      </p>
-      <p>
-        A central objective is to characterize how models implement latent state mechanisms to perform probabilistic
-        reasoning and formalize mathematically this process.
-      </p>
-
-      <h3 class="subheading">Your Benefits</h3>
-      <p>
-        You will learn modern interpretability and analysis workflows, manage large-scale activation datasets, and build
-        LLM inference/evaluation pipelines on HPC. You will work at the interface of cognitive science, neuroscience, and
-        mechanistic auditing of reasoning models.
-      </p>
-
-      <h3 class="subheading">Related Works / Preliminary Readings</h3>
-      <ul>
-        <li><a href="https://arxiv.org/abs/2602.08693">Guiomar &amp; Torre et al. (2026). <em>Reasoning aligns language models to human cognition</em></a></li>
-        <li>Kriegeskorte &amp; Kievit (2013). <em>Representational geometry: integrating cognition, computation, and the brain</em>.</li>
-        <li>Conmy et al. (2023). <em>Towards Automated Circuit Discovery for Mechanistic Interpretability</em>.</li>
-        <li>Jo et al. (2025). <em>Causal Path Tracing in Transformers</em>.</li>
-      </ul>
-
-      <h3 class="subheading">Your Profile</h3>
-      <p>Strong Python and PyTorch skills; familiarity with LLMs; interest in interpretability and cognitive science.</p>
-
-      <h3 class="subheading">Supervisors</h3>
-      <ul>
-        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
-        <li>Elia Torre (ETH, UZH)</li>
-        <li>Prof. Valerio Mante (ETH, UZH)</li>
-      </ul>
-
-      <h3 class="subheading">Starting Date + Duration</h3>
-      <p>This project is currently available as a master thesis.</p>
-    </div>
-  </details>
-
-  <details class="card project-card project-dropdown">
-    <summary class="project-summary">
-      <span class="project-title">Adaptive Computation in Reinforcement Learning</span>
-    </summary>
-    <div class="project-content">
-      <h3 class="subheading">Background</h3>
-      <p>
-        World models learn latent dynamics of environments and enable agents to plan or imagine trajectories rather than
-        interact purely online, improving sample efficiency. However, changes in the environment complexity lead to
-        inability of a lot of models to integrate novel aspects of underlying tasks, leading to sensitivity to
-        hyperparameter fine-tuning. Designing an adaptive World Model Rollout algorithm that improves training and
-        evaluation efficiency is then fundamental to building RL agents that can operate in complex environments.
-      </p>
-
-      <h3 class="subheading">Master Thesis</h3>
-      <p>
-        You will implement and evaluate a novel world-model training algorithm aimed at improving efficiency of World
-        Model Rollouts. The project combines algorithmic development with thorough empirical evaluation.
-      </p>
-
-      <h3 class="subheading">Research Directions</h3>
-      <ul>
-        <li>Implement reference world-model agents (TDMPC, DreamerV3-style) in PyTorch.</li>
-        <li>Standardize training pipelines and metrics across multiple RL robotics and 2D/3D navigation based environments.</li>
-        <li>Integrate the novel algorithm into the world model variants.</li>
-        <li>Analyze its effect on model accuracy, rollout quality, and policy performance.</li>
-      </ul>
-
-      <h3 class="subheading">Your Benefits</h3>
-      <p>
-        You will gain deep experience with state-of-the-art model-based RL, modern world-model architectures, and
-        large-scale experiments on GPU clusters.
-      </p>
-
-      <h3 class="subheading">Related Works / Preliminary Readings</h3>
-      <ul>
-        <li>Pau Aceituno et al. (2025). <em>Temporal horizons in forecasting: a performance-learnability trade-off</em>.</li>
-        <li>Nicklas Hansen et al. (2022). <em>Temporal Difference Learning for Model Predictive Control</em>.</li>
-      </ul>
-
-      <h3 class="subheading">Your Profile</h3>
-      <p>Proficiency in Python and PyTorch, and prior experience with at least one RL codebase.</p>
-
-      <h3 class="subheading">Supervisors</h3>
-      <ul>
-        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
-        <li>Dr. Pau Aceituno (UZH)</li>
-      </ul>
-
-      <h3 class="subheading">Starting Date + Duration</h3>
-      <p>This project is currently available as a master thesis.</p>
-    </div>
-  </details>
-
-  <details class="card project-card project-dropdown">
-    <summary class="project-summary">
-      <span class="project-title">Recursive Vision Models</span>
-    </summary>
-    <div class="project-content">
-      <h3 class="subheading">Background</h3>
-      <p>
-        Vision Transformers (ViTs) and related architectures achieve state-of-the-art performance but are often
-        computationally expensive due to quadratic attention. Linear and efficient attention variants, as well as
-        biologically inspired recurrent vision models, seek to reduce cost while retaining performance and robustness.
-        Visual RL benchmarks show that compact visual backbones can significantly impact sample efficiency and
-        generalization.
-      </p>
-
-      <h3 class="subheading">Master Thesis</h3>
-      <p>
-        You will validate a biologically inspired recurrent vision architecture on modern vision RL benchmarks. The focus
-        is on linear-attention or recurrent designs that can handle sequences of visual observations in RL environments,
-        and on understanding how architectural choices affect sample efficiency, robustness, and emergent visual reasoning.
-      </p>
-
-      <h3 class="subheading">Your Benefits</h3>
-      <p>
-        You will gain experience in efficient vision architectures, reinforcement learning, and the design of small models
-        capable of non-trivial reasoning over visual inputs.
-      </p>
-
-      <h3 class="subheading">Related Works / Preliminary Readings</h3>
-      <ul>
-        <li>Choromanski, K. et al. (2020). <em>Rethinking Attention with Performers</em>.</li>
-        <li>Han, D. et al. (2023). <em>FLatten Transformer: Vision Transformer using Focused Linear Attention</em>.</li>
-        <li>Yao, Z. et al. (2024). <em>Mobile-Friendly Linear Attention for Vision Transformers</em>.</li>
-        <li>Xu, Y. et al. (2024). <em>Improving Linear Attention in ViT with Quadratic Taylor Expansion</em>.</li>
-        <li>Tao, M. et al. (2023). <em>Evaluating Vision Transformer Methods for Deep Reinforcement Learning Control Tasks</em>.</li>
-      </ul>
-
-      <h3 class="subheading">Your Profile</h3>
-      <p>
-        Comfortable using PyTorch and some familiarity with RL libraries. Interest in biologically inspired models and
-        efficient architectures is important.
-      </p>
-
-      <h3 class="subheading">Supervisors</h3>
-      <ul>
-        <li>Dr. Gonçalo Guiomar (ETH, UZH)</li>
-        <li>Prof. Valerio Mante (ETH, UZH)</li>
-      </ul>
-
-      <h3 class="subheading">Starting Date + Duration</h3>
-      <p>This project is currently available as a master thesis.</p>
-    </div>
-  </details>
-
-</main>
+  <footer class="foot">
+    <div><a href="https://scholar.google.com/citations?user=WJ9kSn8AAAAJ">Scholar</a><a href="https://github.com/gguiomar">GitHub</a></div>
+    <span>Zurich</span>
+  </footer>
+</div>
+<script src="attractor.js"></script>
+<script src="bt.js"></script>
 </body>
 </html>
