@@ -28,3 +28,11 @@ First remove the GitHub Pages custom domain and restore its source to main / usi
 To disable only the new server virtual host, unlink /etc/nginx/sites-enabled/zz-gguiomar.conf, run nginx -t, and reload nginx. Leave vst unchanged. Keep release files and TLS keys for recovery.
 
 For future releases, upload public files to a new release directory and atomically replace the current symlink; retain the previous release to roll back. Automated releases and restricted deployment credentials are not configured by this migration.
+
+## Validation results
+
+All 56 exported public files were downloaded through Cloudflare and matched their local release SHA-256 hashes. HTTP and www redirects return 301 and preserve path/query. The legacy GitHub Pages address returns 301 to http://gguiomar.org, which immediately returns 301 to HTTPS; the final deep link returns 200. GitHub rejected enabling direct HTTPS forwarding because it has no custom-domain certificate. The Cloudflare public HTTPS certificate and origin TLS are working. This extra legacy redirect hop remains.
+
+The initial Python urllib checker received 403 responses; repeating the complete byte-integrity check with curl passed for all files. nginx -t passes, cog-schema is active, and the original IP endpoint still returns its existing /introduction redirect.
+
+A DNS save was initially blocked by automatic approval review while the origin was staged with 503. No record was saved at that point. After installing and verifying the origin certificate and public content, both DNS saves succeeded.
