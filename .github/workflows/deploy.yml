@@ -1,0 +1,86 @@
+name: Deploy website
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      rollback_release:
+        description: 'Existing release ID to restore (leave blank to deploy this commit)'
+        required: false
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: website-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: python3 -m unittest discover -s deployment -p 'test_*.py'
+      - run: python3 deployment/build.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-release
+          path: build/site.tar.gz
+          retention-days: 30
+      - uses: actions/upload-pages-artifact@v4
+        if: github.event_name != 'pull_request'
+        with:
+          path: build/redirects
+  production:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: website-release
+      - name: Install restricted SSH identity
+        env:
+          DEPLOY_KEY: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' '172.104.244.173 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPI2062TIX+RXJAdsNZhLEeMVd7wKT5VXBd8D8DMbBgu' > ~/.ssh/known_hosts
+      - name: Activate release
+        env:
+          ROLLBACK: ${{ inputs.rollback_release }}
+        run: |
+          if [ -n "$ROLLBACK" ]; then
+            [[ "$ROLLBACK" =~ ^[0-9a-f]{7,40}$ ]] || exit 1
+            ssh -o BatchMode=yes website-deploy@172.104.244.173 "rollback $ROLLBACK"
+          else
+            ssh -o BatchMode=yes website-deploy@172.104.244.173 "deploy $GITHUB_SHA" < site.tar.gz
+          fi
+      - name: Verify public HTTPS
+        env:
+          ROLLBACK: ${{ inputs.rollback_release }}
+        run: |
+          curl --fail --silent --show-error --retry 3 https://gguiomar.org/ -o /dev/null
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://www.gguiomar.org/)" = 301
+          if [ -z "$ROLLBACK" ]; then
+            tar -xzf site.tar.gz release-manifest.json
+            curl --fail --silent --show-error "https://gguiomar.org/release-manifest.json?release=$GITHUB_SHA" -o live-manifest.json
+            cmp release-manifest.json live-manifest.json
+          fi
+      - name: Remove SSH identity
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519
+  legacy-redirects:
+    needs: [build, production]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: pages
