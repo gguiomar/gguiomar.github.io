@@ -27,6 +27,14 @@ GitHub's `production` environment permits only the `main` branch and holds `WEBS
 - HTTP and www permanently redirect to HTTPS root, preserving path and query.
 - Existing vst nginx config and Cog Schema service on port 5002 remain unchanged.
 
+## Hardening
+
+- Firewall (ufw, enabled on boot): SSH (22) open to all, so administrators and the GitHub deploy can always connect; HTTP/HTTPS (80, 443) accepted only from Cloudflare's published ranges (https://www.cloudflare.com/ips-v4 and /ips-v6, IPv4 and IPv6); everything else denied, including the Cog Schema gunicorn port 5002. Direct requests to the origin IP time out, so traffic cannot bypass Cloudflare.
+- Cloudflare occasionally changes its ranges. To refresh: fetch both lists, `ufw --force reset`, re-add `22/tcp` and one `allow proto tcp from <range> to any port 80,443` rule per range, then `ufw --force enable`. Arm a dead-man switch first (`systemd-run --unit=ufw-deadman --on-active=300 /usr/sbin/ufw disable`) and stop it (`systemctl stop ufw-deadman.timer`) once both sites and SSH are verified.
+- nginx `server_tokens off` in `/etc/nginx/nginx.conf`: responses show `Server: nginx` without the version.
+- gguiomar.org sends HSTS (one year, no subdomains), `X-Content-Type-Options: nosniff`, a strict-origin referrer policy, `X-Frame-Options: SAMEORIGIN` and a permissions policy disabling camera, microphone and geolocation. No Content-Security-Policy yet: the legacy pages (`writings.html`, `diagram/`, `axiom_casino.html`) use inline scripts and external CDNs.
+- Pre-hardening copies of nginx.conf, the site config and ufw rules are in `/root/hardening-backup-20261116-113150` on the server.
+
 ## Rollback
 
 Open Actions → Deploy website → Run workflow, choose main, and set `rollback_release` to an existing release ID (for example `aad57d8`). This atomically switches current to that release; no upload or nginx restart is needed. Leave the field blank to deploy the selected main commit. Re-running an already deployed commit is safe if the release contents match.
