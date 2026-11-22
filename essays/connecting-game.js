@@ -350,6 +350,7 @@
     var scale = Math.min(devicePixelRatio || 1, 2) * 0.6;
     bg.width = Math.round(innerWidth * scale); bg.height = Math.round(innerHeight * scale);
     bgVariants = [];
+    if (!bg.width || !bg.height) { setTimeout(buildBg, 200); return; }   // frame not laid out yet: try again shortly
     for (var v = 0; v < BOIL; v++) bgVariants.push(paintBackground(bg.width, bg.height, v));
     lastBg = -1;
   }
