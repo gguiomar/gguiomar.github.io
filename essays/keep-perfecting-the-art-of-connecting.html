@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keep perfecting the art of connecting · Gonçalo Guiomar</title>
+<meta name="description" content="A cooperation game for a competitive scientific community: the 2019 Champalimaud Research retreat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="canonical" href="https://gguiomar.org/essays/keep-perfecting-the-art-of-connecting.html">
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js"></script>
+<style>
+  /* essay typography (mockup: move into site.css when published) */
+  .essay-head { margin: 36px 0 8px; }
+  .essay-head h1 { margin: 0; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.25; }
+  .essay-head .meta { margin: 10px 0 0; font: 12px "IBM Plex Mono", monospace; color: var(--muted); }
+  .essay { margin-top: 32px; }
+  .essay p { margin: 0 0 18px; font-size: 16px; line-height: 1.75; text-wrap: pretty; }
+  .essay p.lede { font-size: 18px; line-height: 1.6; color: var(--muted); }
+  .essay h2 { display: flex; align-items: center; gap: 12px; margin: 48px 0 16px; font-size: 15px; font-weight: 500; }
+  .cell { display: inline-grid; place-items: center; width: 26px; height: 26px; flex: none;
+          border: 1.5px solid currentColor; font: 500 13px "IBM Plex Mono", monospace; color: var(--c, var(--text)); }
+  .essay figure { margin: 32px 0; }
+  .essay figure img { display: block; width: 100%; height: auto; }
+  .essay figure canvas { display: block; width: 100%; aspect-ratio: 2.2 / 1; }
+  .essay figcaption { margin-top: 10px; font: 11.5px/1.55 "IBM Plex Mono", monospace; color: var(--faint); }
+  .essay figure.game { margin: 36px 0; }
+  .game-frame { position: relative; background: #b03a5a; overflow: hidden; }
+  .game-frame iframe { display: block; width: 100%; height: 560px; border: 0; transition: height 0.2s ease; }
+  .essay figure.game figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+  .essay figure.game figcaption a { flex: none; color: var(--muted); }
+  .essay figure.game figcaption a:hover { color: var(--text); }
+  .key { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); margin-right: 6px; vertical-align: 1px; }
+  .sentence { margin: 36px auto; display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 440px; }
+  .sentence span { aspect-ratio: 1; display: grid; place-items: center; border: 1.5px solid var(--muted);
+                   font: 500 clamp(12px, 3.2vw, 17px) "IBM Plex Mono", monospace; }
+  .sentence span.b { border-color: var(--line); }
+  .credits { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .credits dl { margin: 0; display: grid; grid-template-columns: 170px 1fr; gap: 8px 20px; font-size: 13.5px; }
+  .credits dt { font: 11.5px "IBM Plex Mono", monospace; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); padding-top: 2px; }
+  .credits dd { margin: 0; color: var(--muted); }
+  .back { display: inline-block; margin-top: 28px; font: 11.5px "IBM Plex Mono", monospace; color: var(--faint); }
+  .back:hover { color: var(--text); }
+  @media (max-width: 640px) {
+    .essay p { font-size: 15.5px; }
+    .credits dl { grid-template-columns: 1fr; gap: 2px; }
+    .credits dd { margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="id">
+    <div><a class="who" href="../index.html">Gonçalo Guiomar</a> <span class="role">· Essays</span></div>
+    <nav><a href="../index.html">Research</a><a href="../artworks.html">Art</a><a href="index.html" aria-current="page">Essays</a><a href="../projects.html">Projects</a><button class="theme-toggle" type="button"></button></nav>
+  </header>
+
+  <div class="fig slim"><canvas data-visual="cipher" aria-label="A grid of cipher cells resolving into the sentence Keep perfecting the art of connecting"></canvas></div>
+
+  <main>
+    <div class="essay-head">
+      <h1>Keep perfecting the art of connecting</h1>
+      <p class="meta">2019 · A cooperation game for the Champalimaud Research retreat</p>
+      <p class="meta"><a href="#play">Play the game ↓</a></p>
+    </div>
+
+    <article class="essay">
+      <p class="lede">How do you take a divided, competitive group of people and get them to cooperate, without ever telling them that this is the point?</p>
+
+      <h2><span class="cell" style="--c: var(--blue)">K</span>Tools for polarisation</h2>
+      <p>In the summer of 2018 I was thinking a lot about polarisation: echo chambers, the role of social media in aggressive social clustering, the habit of tuning out anyone who disagrees. I went to discussion groups about it and always left dissatisfied. We could describe the problem in detail, but there were no tools to actually do anything about it, and no real idea of how to act.</p>
+
+      <h2><span class="cell" style="--c: var(--orange)">E</span>A divided room</h2>
+      <p>Then I got access to an unusual setting: roughly two hundred people for three days, and the job of designing the activities for the Champalimaud Research retreat. These people worked together in the same place every day, but for historical reasons they were split into three clusters of similar size, defined by the kind of work they did. Inside each cluster there was a heterogeneous mix of personalities, backgrounds and ages. Between clusters, much less traffic.</p>
+      <p>Both the local and the global environment were highly competitive. Everyone was highly skilled, motivated and used to cut-throat competition: with colleagues in their own group, and with the rest of the world for funding, high-impact publications and careers. It seemed the perfect setting for a social experiment on polarisation, built around one question: how can we take a divided, competitive population and get it to cooperate and dissolve the boundaries of its clusters, without saying that this is the goal?</p>
+
+      <h2><span class="cell" style="--c: var(--green)">E</span>Breaking apart hierarchy</h2>
+      <p>To make our lives harder, we made the environment competitive too. Everyone started out in teams of three, competing in a series of games. After each game the teams merged by rank: the winner was joined with the last-placed team, second place with second-to-last, and so on. At each step of the ladder the teams doubled, from three to six to twelve to twenty-four, until two groups of about a hundred people remained.</p>
+      <figure>
+        <canvas data-visual="merge" aria-label="Animated diagram: teams of three from three clusters merge by rank, doubling each round, until one group remains"></canvas>
+        <figcaption>
+          How the groups merged: about two hundred people in teams of three, merged by rank after every round (first with last) until a single group remained. Illustrative; the colors are the three clusters.
+          <span class="key"><span style="--c: var(--blue)">cluster A</span><span style="--c: var(--orange)">cluster B</span><span style="--c: var(--green)">cluster C</span></span>
+        </figcaption>
+      </figure>
+      <p>Because the mixing went by rank, evidence never piled up in the best team. The worst-placed team always gained access to valuable information and got a chance to re-engage in the following games and contribute new clues. Everyone got a second chance, knowledge was open to all and resources were shared by everyone; that part was inspired by Sci-Hub, with thanks to Alexandra Elbakyan.</p>
+
+      <h2><span class="cell" style="--c: var(--violet)">P</span>Symbols</h2>
+      <p>Every game earned a symbol: a glyph from a cipher whose initial designs were made by Pietro Vertechi and Diogo Matias. A glyph alone means nothing. It maps to a word only once you have enough of them, and no team ever held all of them.</p>
+
+      <h2><span class="cell" style="--c: var(--red)">A</span>The grid</h2>
+      <p>On the last night, the two big groups faced each other on a dance floor, in front of one screen: a beautiful piece of interactive puzzle art by <a href="https://isaquepicaosanches.art/project/keep-perfecting-the-art-of-connecting/">Isaque Sanches</a>, which we developed together, with me as creative director. It was a grid of cells, each flickering between a glyph, a letter and a number. Each group had a sheet of paper with the shape of a sentence, some inspirational sentences hinting at the purpose of the game, and a share of twenty-five wireless accelerometers developed in the Collective Motion Laboratory, used as controllers. Tilting one changed a block of cells on the screen. Nobody was told that.</p>
+      <figure>
+        <img src="../assets/essays/connecting-grid-screen.jpg" alt="Players reaching toward a projected grid of cipher cells in which the words KEEP, PERFECTING and CONNECTING are partly resolved" loading="lazy">
+        <figcaption>The grid mid-game: some rows already read KEEP and PERFECTING, others are still glyphs and digits.</figcaption>
+      </figure>
+      <p>None of the two hundred people had the final key. They faced a situation of incomplete information, in which they had to interact with people outside their own circle and, more importantly, with their direct competitors.</p>
+      <figure class="game" id="play">
+        <div class="game-frame"><iframe src="connecting-game.html?embed" title="The final decryption game, playable" loading="lazy" allow="accelerometer; gyroscope"></iframe></div>
+        <figcaption>
+          <span>Play it. Twenty-five controllers each tilt up (glyphs), left (letters) or right (numbers); nobody tells you which cells they move. Single-player version.</span>
+          <a href="connecting-game.html">Full screen ↗</a>
+        </figcaption>
+      </figure>
+
+      <h2><span class="cell" style="--c: var(--ochre)">N</span>No winner</h2>
+      <p>We saw competition break down into cooperation. We saw group structure dissolve into clusters of information exchange: a micro-society brewing out of a symbolic matrix, with people shifting between leading and following roles across a chaotic social graph. Some teams announced that they had won as soon as they decoded their own sheet of paper. We said nothing, because the sheet was never the solution, and rewarding it would have rewarded the very instinct the game was questioning.</p>
+      <p>But slowly, we also saw convergence. At each iteration someone would settle their controller on a choice and wait for the others to converge around it, until everyone saw the answer in front of them at the same time:</p>
+      <div class="sentence" aria-label="Keep perfecting the art of connecting">
+        <span class="b"></span><span class="b"></span><span class="b"></span><span>K</span><span>E</span><span>E</span><span>P</span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span>P</span><span>E</span><span>R</span><span>F</span><span>E</span><span>C</span><span>T</span><span>I</span><span>N</span><span>G</span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span>T</span><span>H</span><span>E</span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span>A</span><span>R</span><span>T</span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span>O</span><span>F</span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        <span>C</span><span>O</span><span>N</span><span>N</span><span>E</span><span>C</span><span>T</span><span>I</span><span>N</span><span>G</span>
+      </div>
+      <figure>
+        <img src="../assets/essays/connecting-crowd.jpg" alt="A crowd in a party tent, arms raised and pointing at the screen while coordinating" loading="lazy">
+        <figcaption>Coordinating across the room in the final minutes.</figcaption>
+      </figure>
+
+      <h2><span class="cell" style="--c: var(--blue)">T</span>Instruments of connectedness</h2>
+      <p>Without knowing it, we had built both an instrument of complexity and an instrument of connectedness, in <a href="https://www.its.caltech.edu/~matilde/ScaleAnarchy.pdf">Matilde Marcolli</a>'s sense. I'm convinced we should build more of them.</p>
+    </article>
+
+    <section class="credits">
+      <dl>
+        <dt>Essay</dt><dd>Gonçalo Guiomar</dd>
+        <dt>Concept &amp; creative direction</dt><dd>Gonçalo Guiomar</dd>
+        <dt>Game design</dt><dd><a href="https://isaquepicaosanches.art/project/keep-perfecting-the-art-of-connecting/">Isaque Sanches</a>, Gonçalo Guiomar</dd>
+        <dt>Game art &amp; code</dt><dd><a href="https://isaquepicaosanches.art/project/keep-perfecting-the-art-of-connecting/">Isaque Sanches</a></dd>
+        <dt>On-site planning &amp; space design</dt><dd>Tiago Quendera</dd>
+        <dt>Cipher symbols</dt><dd>Pietro Vertechi, Diogo Matias</dd>
+        <dt>Controllers</dt><dd>Collective Motion Laboratory</dd>
+        <dt>Context</dt><dd>Champalimaud Research retreat, 2019</dd>
+      </dl>
+    </section>
+    <a class="back" href="index.html">← All essays</a>
+  </main>
+
+  <footer class="foot">
+    <div><a href="https://www.instagram.com/latentvoid/">Instagram</a></div>
+    <span>Zurich</span>
+  </footer>
+</div>
+<script>
+  // the embedded game reports its height so the frame never scrolls
+  addEventListener("message", function (e) {
+    var h = e.data && e.data.connectingGameHeight, f = document.querySelector(".game-frame iframe");
+    if (f && h && e.source === f.contentWindow) f.style.height = h + "px";
+  });
+</script>
+<script src="../cipher.js"></script>
+<script src="../merge.js"></script>
+</body>
+</html>
